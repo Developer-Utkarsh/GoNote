@@ -983,5 +983,5 @@ li {
   background-color: #1c1c1c;
   box-shadow: none;
   border-top: .25px solid #555;
-  position: sticky;
+  position: absolute;
 }
