@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import AddNote from './addNote';
 import Note from './note';
 import User from './user';
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton, useUser } from '@clerk/clerk-react'; // Importing useUser hook
+
 function Sidebar(props) {
     const [notesArray, setNotesArray] = useState(props.notesArray);
+    const { user } = useUser();
     function generateRandomId() {
         let id = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -88,6 +93,7 @@ function Sidebar(props) {
 
     return (
         <>
+
             <div className={`sidebarContainer ${props.menu}`}>
                 <div className='sidebar'>
                     <div className="brand">
@@ -122,10 +128,14 @@ function Sidebar(props) {
                         </div>
                     </div>
                     <div className="userSection">
+                        {/* Conditionally rendering UserButton */}
+                        <User />
+                        {/* If user is logged in, show UserButton, else show SignIn button */}
                         <div className="copyright">By Utkarsh Tiwari</div>
                     </div>
                 </div>
             </div>
+
         </>
     );
 }

@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link component
+import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton } from '@clerk/clerk-react';
 
-function user(props) {
+function User(props) {
+    const [userName, setUserName] = useState(props.userName);
+
+    useEffect(() => {
+        if (!props.userName) {
+            setUserName("Login/Register");
+        }
+    }, [props.userName]); // Only re-run the effect if props.userName changes
+
     return (
-        <>
-            <div className="user-container">
-                <div className="userDetails">
+        <div className="user-container">
+            <div className="userDetails">
+                {/* Use Link to navigate to the sign-in page */}
+                <SignedOut>
                     <i className="fa-solid fa-circle-user"></i>
-                    <h2 className="userName">{props.userName}</h2>
-                </div>
+                    <div className="links">
 
+                        <Link to="/login" className="userLink">
+                            <h2 className="userName">Login</h2>
+                        </Link><span>/</span>
+                        <Link to="/register" className="userLink">
+                            <h2 className="userName">Register</h2>
+                        </Link>
+                    </div>
+                </SignedOut>
+                <SignedIn>
+                    <UserButton showName={true} signInUrl="register" />
+                </SignedIn>
             </div>
-
-        </>
-    )
+        </div>
+    );
 }
 
-export default user
+export default User;
