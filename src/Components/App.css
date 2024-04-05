@@ -1,0 +1,964 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Average+Sans&family=Signika+Negative:wght@300..700&display=swap');
+
+/* Define CSS variables */
+:root {
+  --primary-color: #3933A0;
+  --secondary-color: #7C1932;
+}
+
+/* Global styles */
+body {
+  font-family: "Signika Negative", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: #0e0e0e;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Specific styles for different font classes */
+.negative {
+  font-family: "Signika Negative", sans-serif;
+}
+
+.average {
+  font-family: "Average Sans", sans-serif;
+}
+
+/* Sidebar container */
+.sidebarContainer {
+  width: 20%;
+  height: 100vh;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  padding-right: 3px;
+  background-size: 200% 200%;
+  animation: gradientAnimation 3s infinite alternate;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Sidebar content */
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  background: #1e1e1e;
+}
+
+/* Animation for gradient background */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  padding: 1rem ;
+  padding-bottom: 0.5rem;
+}
+
+.brandDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+}
+
+img {
+  width: 2.5rem;
+  height: auto;
+}
+
+.brand h2 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+/* Hover effect on brand */
+.brand:hover {
+  background-color: #1c1c1c;
+  transition: background-color 0.3s ease;
+} 
+
+/* Toggler */
+.toggler {
+  font-size: 1.5rem;
+  color: #ccc;
+  transition: 0.3s ease-in-out;
+}
+
+.toggler:hover {
+  color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* Button Container */
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem ;
+}
+
+/* Button */
+button.btn {
+  width: 90%;
+  padding: 0.9rem;
+  font-size: 1.5rem;
+  color: #eee;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  border: none;
+  border-radius: 0.5rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  animation: liquidBackground 5s infinite alternate;
+  border: 0.25px solid #555;
+  box-shadow: 0 1px 1px var(--primary-color);
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+/* Animation for liquid background */
+@keyframes liquidBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+.btn:hover{
+  border: 0.75px solid #777;
+  box-shadow: 0 2px 4px var(--primary-color);
+}
+/* Button hover effect */
+button.btn:active {
+  cursor: pointer;
+  animation: clickAnimation 0.3s ease; /* Button click animation */
+}
+
+/* Animation for clicking effect */
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.notesContainer {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 1rem;
+  height: auto;
+}
+.note-items {
+  width: 89.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #151515;
+  padding: 0.5rem 0.75rem;
+  /* margin: auto; */
+  margin: 0.75px;
+    border-radius: 0.5rem;
+    transition: 0.5s ease-in-out;
+}
+.note {
+  min-width: 95%;
+  background-color: #2e2e2e;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    margin: 0.25rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+
+.note-header {
+  margin: 0.5rem 0;
+  color: #999;
+  text-align: left;
+  font-size: 1rem;
+  width: 100%;
+}
+
+p.title {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-family: 'Signika Negative';
+  color: #eee;
+  font-weight: 900;
+}
+
+p {
+  margin: 0;
+}
+
+.note-footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  text-align: right;
+  color: #555;
+}
+.note-footer p span{
+  display: block;
+}
+.note:hover{
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  cursor: pointer;
+}
+.activeNote{
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  cursor: pointer;
+}
+.note:hover{
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  cursor: pointer;
+}
+.note:hover .note-items{
+  background: #111;
+}
+.userSection {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  border-top: 0.25px solid #555;
+  border-top-left-radius: 0.75rem;
+  background: #171717;
+  border-top-right-radius: 0.75rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out;
+}
+.userSection:hover{
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.4);
+  color: #eee;
+}
+.user-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.userDetails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  color: #ccc;
+  padding: 0.5rem 0.25rem;
+}
+
+.userDetails i {
+  font-size: 1.5rem;
+}
+
+h2.userName {
+  font-size: 1.25rem;
+  margin: 0;
+  padding-left: 0.5rem;
+  font-weight: 500;
+  font-family: 'Average Sans';
+  letter-spacing: 0.25px;
+}
+
+.copyright {
+  color: #777;
+  font-size: 0.75rem;
+}
+.userSection:hover .userDetails {
+  color: #eee;
+}
+.note:hover{
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+.btn:hover{
+  transform: scale(1.05);
+}
+.toggler:hover i{
+  transform: scale(1.1);
+}
+@media (max-width:1294px){
+  .sidebarContainer{
+    width: 25%;
+  }
+}
+@media (max-width:1024px){
+  .sidebarContainer{
+    width: 30%;
+  }
+}
+@media (max-width:912px){
+  .sidebarContainer{
+    width: 32%;
+  }
+}
+.sidebarTop {
+  position: sticky;
+  top: 0;
+  padding-bottom: 0.25rem;
+}
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  background: #1e1e1e;
+  overflow-y: hidden;
+}
+.sidebarTop {
+  position: sticky;
+  top: 0;
+  padding-bottom: 0.5rem;
+  background: #1e1e1e;
+}
+.userSection {
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  border-top: 0.25px solid #555;
+  border-top-left-radius: 0.75rem;
+  background: #171717;
+  border-top-right-radius: 0.75rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out;
+}
+::-webkit-scrollbar{
+  width: 5px;
+  background-color: #1e1e1e;
+  margin-right: 0.25rem;
+}
+::-webkit-scrollbar-thumb{
+  width: 6px;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  border-radius: 2rem;
+}
+.notesContainer {
+    width: 90%;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 1rem;
+    height: auto;
+    overflow-y: auto;
+}
+.notesContainer {
+  
+  margin-top: 0rem;
+  height: auto;
+  overflow-y: auto;
+}
+.sidebarContainer{
+  position: relative;
+}
+.hidden{
+  left: -20rem;
+}
+.mainToggler{
+  
+      font-size: 1.5rem;
+      color: #ccc;
+      transition: 0.3s ease-in-out;
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+    
+      cursor: pointer;
+      z-index: 1000;
+
+}
+.mainToggler.hidden{
+      left: -20rem;
+}
+.sidebarContainer{
+  transition: 0.5s ease-in-out;
+}
+.notesContainer {
+  margin-top: 0rem;
+  height: auto;
+  overflow-y: auto;
+  width: 98%;
+}
+@media (max-width: 792px){
+
+
+  .sidebarContainer {
+      width: 40%;
+  }
+}
+@media (max-width: 592px){
+
+
+  .sidebarContainer {
+      width: 50%;
+  }
+}
+@media (max-width: 462px){
+
+
+  .sidebarContainer {
+      width: 75%;
+  }
+}
+
+.titleContainer{
+  padding-bottom: 0.5px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  width: auto;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+.titleContainer .title{
+  background: #151515;
+  width: auto;
+}
+p.title {
+  font-size: 1.25rem;
+  margin-bottom: 0.1rem;
+  font-family: 'Signika Negative';
+  color: #eee;
+  font-weight: 900;
+}
+.userDetails {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  color: #ccc;
+  padding: 0.25rem;
+  padding-top: 0.2rem;
+}
+.userSection{
+  padding-bottom: 0.5rem;
+}
+.container {
+  width: 75%;
+  /* display: flex; */
+  /* justify-content: center; */
+  align-items: center;
+  padding: 0rem;
+}
+
+.noteContainer {
+  /* width: 100%; */
+  padding: 0;
+  /* height: 100vh; */
+  padding-top: 3rem;
+  padding-left: 4rem;
+}
+
+.noteHeading {
+  margin-bottom: 1.5rem;
+  padding-bottom: 2px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  min-width: 24%;
+  width: auto;
+}
+
+div#root {
+  display: flex;
+}
+
+input.title {
+  background: #0e0e0e;
+  color: #eee;
+  border: none;
+  font-size: 2.5rem;
+  font-family: 'Signika Negative';
+  outline: none;
+  width: auto;
+  /* Adjust width based on text content */
+  max-width: 100%;
+  /* Set maximum width for better UI */
+  display: block;
+}
+.noteDesc{
+  width: 95%;
+  height: 75vh;
+}
+.noteDesc textarea{
+  border: none;
+  font-size: 1.1rem;
+  color: #ccc;
+  font-family: 'Average Sans';
+  outline: none;
+  width: 100%;
+  height: 75vh;
+letter-spacing: 0.5px;
+font-weight: 400;
+background-color: #0e0e0e;
+line-height: 1.5rem;
+resize:none;
+border-radius: 1rem;
+}
+.sidebarContainer{
+  transition:  0.3s display ease-in-out;
+}
+.sidebarContainer.hidden{
+  display: none;
+}
+.container.active {
+  width: 90%;
+  /* display: flex; */
+  /* justify-content: center; */
+  align-items: center;
+  padding: 0rem;
+}
+.container.active .noteContainer {
+  /* width: 100%; */
+  padding: 0;
+  margin: auto;
+  /* height: 100vh; */
+  padding-top: 4rem;
+  padding-left: 5rem;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+}
+@media (max-width:792px){
+  .container.active {
+      width: 95%;
+      /* display: flex; */
+      /* justify-content: center; */
+      align-items: center;
+      padding: 0rem;
+    }
+        .sidebarContainer {
+          width: 45%;
+          position: absolute;
+        }
+                .container.active .noteContainer {
+                  /* width: 100%; */
+                  padding: 0;
+                  margin: auto;
+                  /* height: 100vh; */
+                  padding-top: 4rem;
+                  padding-left: 2rem;
+                  /* display: flex; */
+                  /* justify-content: center; */
+                  /* align-items: center; */
+                  /* flex-direction: column; */
+                }
+}
+.formattingContainer{
+  position: fixed;
+  right: 1.5rem;
+top: 38%;
+  display: flex;
+  flex-direction: column;
+ 
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+ 
+  padding: 1px;
+  border-radius: 0.5rem;
+}
+.formattings{
+  background-color: #0e0e0e;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+.formattingItems {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #ccc;
+  margin: 0.5rem 0.4rem  ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:  0.5rem 0.4rem;
+  background: #0f0f0f;
+  border-radius: 0.25rem;
+  transition: 0.5s ease-in-out;
+}
+.formattingItems:hover{
+  transform: scale(1.05);
+  background-color: var(--primary-color);
+}
+.toggler i:hover{
+  transform: scale(1.1);
+  color: var(--primary-color);
+}
+.noteDesc textarea {
+  border: none;
+  font-size: 1.25rem;
+  color: #ccc;
+  font-family: 'Average Sans';
+  outline: none;
+  width: 100%;
+  height: 75vh;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+  background-color: #0e0e0e;
+  line-height: 1.5rem;
+  resize: none;
+  border-radius: 1rem;
+}
+.mainToggler {
+  font-size: 1.5rem;
+  color: #ccc;
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 1.5rem;
+  /* left: 2rem; */
+  cursor: pointer;
+  z-index: 1000;
+  display: none;
+}
+.mainToggler.active {
+  font-size: 1.5rem;
+  color: #ccc;
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+}
+@media (max-width: 592px){
+
+  .sidebarContainer {
+      width: 50%;
+      position: absolute;
+  }
+
+}
+@media (max-width: 492px){
+
+  .sidebarContainer {
+      width: 60%;
+      position: absolute;
+  }
+
+}
+@media (max-width: 454px){
+
+  .sidebarContainer {
+      width: 70%;
+      position: absolute;
+  }
+
+}
+@keyframes typewriter {
+  0% {
+   width:0%;
+  }
+5%{
+  width: 5%;
+}
+10%{
+
+   width: 10%;
+}
+15%{
+
+   width: 15%;
+}
+20%{
+
+   width: 20%;
+}
+25%{
+
+   width: 25%;
+}
+30%{
+
+   width: 30%;
+}
+35%{
+
+   width: 35%;
+}
+40%{
+
+   width: 40%;
+}
+45%{
+
+   width: 55%;
+}
+  50% {
+
+     width: 50%;
+  }
+  55% {
+
+     width: 60%;
+  }
+  65% {
+
+     width: 70%;
+  }
+  75% {
+
+     width: 75%;
+  }
+  80% {
+
+     width: 80%;
+  }
+  90% {
+
+     width: 90%;
+  }
+  95% {
+
+     width: 95%;
+  }
+ 
+
+  100% 
+  {
+     width: 100%;
+  }
+}
+@keyframes titlebg{
+  0%{
+    background: none;
+  }
+  20%{
+    background: none;
+  }
+  30%{
+    background: none;
+  }
+  40%{
+    background: none;
+  }
+  50%{
+    background: none;
+  }
+  60%{
+    background: none;
+  }
+  70%{
+    background: none;
+  }
+  80%{
+    background: none;
+  }
+  95%{
+    background: none;
+  }
+  99.999%{
+    background: none;
+  }
+
+  100%{
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  }
+}
+input.title{
+  animation: typewriter 3.5s;
+}
+
+.noteHeading {
+  animation: titlebg 3.5s;
+}
+.show{
+  animation: typewriter 3.5s;
+}
+
+.showinp {
+  animation: titlebg 3.5s;
+}
+.currentNote {
+  min-width: 95%;
+  background-color: #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  margin: 0.25rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.75);
+  transition: 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1.015);
+}
+
+.activeNote {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  cursor: pointer;
+  border: 0.25px solid #aaa;
+}
+
+.activeNote .note {
+  min-width: 95%;
+  background-color: #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  margin: 0.25rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  transition: 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+
+.activeNote p.desc {
+  color: #ccc;
+}
+
+.activeNote p.time {
+  color: #aaa;
+}
+.activeNote .titleContainer {
+  padding-bottom: 0;
+  background: transparent;
+  width: auto;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  border-bottom: 1.75px solid #ccc;
+}
+
+.activeNote .titleContainer .title {
+  background: transparent;
+  width: auto;
+}
+
+.activeNote p.title {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+  font-family: 'Signika Negative';
+  color: #eee;
+  font-weight: 900;
+}
+.note:hover .activeNote{
+  border: 0.5px solid #ccc;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+.currentNote:hover{
+  transform:scale(1.025);
+}
+.note:hover {
+  transform: scale(1.04);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+.formattingContainer {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%, -50%);
+  transition: 0.2s ease-in-out;
+}
+.hiddenFormatter {
+  position: absolute;
+  top: -25rem;
+
+}.deleteContainer {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  color: #ccc;
+  font-size: 1.25rem;
+  transition: 0.3s;
+}
+.note-items{
+  position: relative;
+}
+.deleteContainer:hover{
+  transform: scale(1.1);
+  color:#eee;
+}
+/* Bold text */
+.bold {
+  font-weight: bold;
+}
+
+/* Italic text */
+.italic {
+  font-style: italic;
+}
+
+/* Underlined text */
+.underline {
+  text-decoration: underline;
+}
+
+/* Unordered list */
+ul {
+  list-style-type: disc;
+  /* You can change 'disc' to 'circle' or 'square' for different bullet styles */
+}
+
+/* Ordered list */
+ol {
+  list-style-type: decimal;
+  /* You can change 'decimal' to 'lower-alpha', 'upper-alpha', 'lower-roman', or 'upper-roman' for different numbering styles */
+}
+
+/* List item */
+li {
+  /* Add any additional styling for list items here */
+}
+.userSection{
+  border: none;
+  border-radius: 0;
+  margin: auto;
+  padding: 0.25rem 0;
+  background-color: #1c1c1c;
+  box-shadow: none;
+  border-top: 0.25px solid #555;
+  
+}
+.copyright {
+  color: #ccc;
+  font-size: 0.75rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+  font-family: 'Signika Negative';
+}
