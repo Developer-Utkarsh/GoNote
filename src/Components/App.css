@@ -952,10 +952,7 @@ ol {
   /* You can change 'decimal' to 'lower-alpha', 'upper-alpha', 'lower-roman', or 'upper-roman' for different numbering styles */
 }
 
-/* List item */
-li {
-  /* Add any additional styling for list items here */
-}
+
 .userSection {
   border: none;
   border-radius: 0;
@@ -991,6 +988,7 @@ a.userLink {
   width: 100%;
   height: 100vh;
   background: #3e59e8;
+  font-family: 'Signika Negative';
 }
 .sidebar {
   width: 100%;
