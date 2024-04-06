@@ -1,5 +1,6 @@
-// AddNote.jsx
 import React, { useState } from 'react';
+import successSound from './sounds/success.mp3';
+
 function AddNote(props) {
     function generateRandomId() {
         let id = '';
@@ -15,10 +16,17 @@ function AddNote(props) {
 
         return id;
     }
+
     const [noteTitle, setNoteTitle] = useState('New Note');
     const [noteDescription, setNoteDescription] = useState('New Note Description');
-
+    const playsuccessSound = () => {
+        const audio = new Audio(successSound);
+        audio.volume = 0.5;
+        audio.play();
+    };
     const handleAddNote = () => {
+        playsuccessSound()
+
         const currentDate = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const formattedDate = currentDate.toLocaleDateString('en-US', options);
@@ -33,6 +41,8 @@ function AddNote(props) {
         props.addNewNote(newNote);
         setNoteTitle('New Note');
         setNoteDescription('New Note Description');
+        // Trigger celebration effect
+        // Remove the class after 3 seconds
     };
 
     return (
@@ -42,6 +52,8 @@ function AddNote(props) {
                     Add Note
                 </button>
             </div>
+            {/* Confetti effect container */}
+
         </>
     );
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddNote from './addNote';
 import Note from './note';
-import User from './user';
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton, useUser } from '@clerk/clerk-react'; // Importing useUser hook
@@ -129,9 +128,14 @@ function Sidebar(props) {
                     </div>
                     <div className="userSection">
                         {/* Conditionally rendering UserButton */}
-                        <User />
                         {/* If user is logged in, show UserButton, else show SignIn button */}
                         <div className="copyright">By Utkarsh Tiwari</div>
+                        <div className="socialMedia">
+                            <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-instagram"></i></a>
+                            <a href="https://github.com/Utkarsh-Web-2023" target='_blank'><i className="fa-brands fa-github"></i></a>
+                            <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-discord"></i></a>
+
+                        </div>
                     </div>
                 </div>
             </div>
