@@ -133,7 +133,7 @@ function Sidebar(props) {
                         <div className="socialMedia">
                             <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-instagram"></i></a>
                             <a href="https://github.com/Utkarsh-Web-2023" target='_blank'><i className="fa-brands fa-github"></i></a>
-                            <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-discord"></i></a>
+
 
                         </div>
                     </div>
