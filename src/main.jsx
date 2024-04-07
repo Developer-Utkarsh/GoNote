@@ -9,26 +9,34 @@ import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk
 
 // Retrieve your Clerk publishable key from environment variables
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={{
-      baseTheme: [dark]
-    }}
-      navigate={(to) => window.location.href = to}
-    >
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={{ baseTheme: [dark] }} navigate={(to) => (window.location.href = to)}>
       <Router>
         <Routes>
           {/* Render sign in and sign up components when user is not logged in */}
-          <Route exact path="/login" element={<SignIn path='login' afterSignInUrl="" redirect_url="" signUpUrl="register " afterSignUpUrl="" />} />
-          <Route exact path="/register" element={<SignUp path='register' afterSignUpUrl="" redirect_url="" afterSignInUrl="" signInUrl="login" />} />
-
-
-
+          <Route
+            exact
+            path="/login"
+            element={
+              <div className="container">
+                <SignIn path="login" afterSignInUrl="" redirect_url="" signUpUrl="/register" afterSignUpUrl="" />
+              </div>
+            }
+          />
+          <Route
+            exact
+            path="/register"
+            element={
+              <div className="container">
+                <SignUp path="register" afterSignUpUrl="" redirect_url="" afterSignInUrl="/login" signInUrl="/login" />
+              </div>
+            }
+          />
           <Route exact path="/" element={<App />} />
         </Routes>
       </Router>
