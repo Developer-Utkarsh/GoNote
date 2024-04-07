@@ -4,12 +4,9 @@
     {
       "src": "/(.*)",
       "dest": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=0"
-        }
-      ]
+      "headers": {
+        "Cache-Control": "s-maxage=0"
+      }
     }
   ]
 }
