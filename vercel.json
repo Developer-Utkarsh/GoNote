@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "destination": "/",
+      "dest": "/",
       "headers": [
         {
           "key": "Cache-Control",
