@@ -4,6 +4,9 @@ import Main from './main';
 import './App.css';
 import welcomeSound from './sounds/welcome_sound.mp3';
 import User from './user';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// Import Clerk components if you're using them for authentication
+import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react';
 
 function App() {
 
@@ -143,33 +146,38 @@ function App() {
   // };
 
   return (
-    <>
-      {loading && (
-        <div className="loaderContainer">
-          <div className="loader"></div>
-          <p className="text">Loading GoNote</p>
-        </div>
-      )}
-      {!loading && (
-        <>
-          <Sidebar menu={menu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId} />
-          <Main menu={menu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
-          <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} >
-            <i className="fa-solid fa-bars"></i>
-
-          </div>
-          <div className="user-continer">
-
-            <User />
-          </div>
-        </>
-      )}
-      {showWelcomeText && (
-        <div className="welcomeTextContainer">
-          <p className="typewriter">Welcome to GoNote</p>
-        </div>
-      )}
-    </>
+    <Router>
+      <Routes>
+        <Route exact path="/login" element={<div className="auth-container "><SignIn path='login' afterSignInUrl="" redirect_url="" signUpUrl="register " afterSignUpUrl="" /></div>} />
+        <Route exact path="/register" element={<div className="auth-container register">    <SignUp path='register' afterSignUpUrl="" redirect_url="" afterSignInUrl="" signInUrl="login" /></div>} />
+        <Route exact path="/" element={
+          <>
+            {loading ? (
+              <div className="loaderContainer">
+                <div className="loader"></div>
+                <p className="text">Loading GoNote</p>
+              </div>
+            ) : (
+              <>
+                <Sidebar menu={menu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId} />
+                <Main menu={menu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
+                <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")}>
+                  <i className="fa-solid fa-bars"></i>
+                </div>
+                <div className="user-container">
+                  <User />
+                </div>
+                {showWelcomeText && (
+                  <div className="welcomeTextContainer">
+                    <p className="typewriter">Welcome to GoNote</p>
+                  </div>
+                )}
+              </>
+            )}
+          </>
+        } />
+      </Routes>
+    </Router>
   );
 }
 

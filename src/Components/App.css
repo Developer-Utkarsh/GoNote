@@ -1742,3 +1742,42 @@ transform: scale(1.1);
   background: #3e59e8;
   padding-top: 5rem;
 }
+.cl-rootBox.cl-signUp-root.🔒️.cl-internal-phfxlr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 110vh;
+  background: #3e59e8;
+  padding-top: 0rem;
+}
+.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem;
+  background: #3e59e8;
+}
+.register {
+  width: 100%;
+  height: 120vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem;
+  background: #3e59e8;
+}
+.user-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  margin-left: 0rem;
+  margin-top: 0rem;
+  position: absolute;
+  right: 1rem;
+  top: 0.75rem;
+  margin: 0;
+}
