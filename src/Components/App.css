@@ -1730,6 +1730,15 @@ transform: scale(1.1);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  
+  padding: 0rem;
+
+}
+.cl-rootBox.cl-signUp-root.🔒️.cl-internal-phfxlr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 110vh;
+  background: #3e59e8;
+  padding-top: 5rem;
 }
