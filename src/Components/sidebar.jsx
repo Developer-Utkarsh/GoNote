@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AddNote from './addNote';
 import Note from './note';
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -8,6 +8,7 @@ import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton, useUser
 function Sidebar(props) {
     const [notesArray, setNotesArray] = useState(props.notesArray);
     const { user } = useUser();
+    const sidebarRef = useRef(null);
     function generateRandomId() {
         let id = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -90,10 +91,35 @@ function Sidebar(props) {
         handleNoteClick(newNote.id, newNote.title, newNote.description);
     };
 
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            const sidebarContainer = sidebarRef.current;
+            const hamburgerIcon = props.hamburgerRef.current;
+            console.log(hamburgerIcon)
+            console.log(props.menu)
+            if (
+                sidebarContainer &&
+                !sidebarContainer.contains(event.target) &&
+                hamburgerIcon &&
+                !hamburgerIcon.contains(event.target) &&
+                window.innerWidth < 792 &&
+                props.menu === ''
+            ) {
+                props.toggleMenu();
+                console.log("toggled")
+            }
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [props.menu, props.toggleMenu, props.hamburgerRef]);
     return (
         <>
 
-            <div className={`sidebarContainer ${props.menu}`}>
+            <div className={`sidebarContainer ${props.menu}`} ref={sidebarRef}>
                 <div className='sidebar'>
                     <div className="brand">
                         <div className="brandDetails">
@@ -138,7 +164,7 @@ function Sidebar(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
         </>
     );

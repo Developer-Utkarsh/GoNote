@@ -1769,15 +1769,8 @@ transform: scale(1.1);
   padding: 0rem;
   background: #3e59e8;
 }
-.user-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: auto;
-  margin-left: 0rem;
-  margin-top: 0rem;
-  position: absolute;
-  right: 1rem;
-  top: 0.75rem;
-  margin: 0;
+@media(max-width:792px){
+  .note .deleteContainer{
+    display: flex;
+  }
 }

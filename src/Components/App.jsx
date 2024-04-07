@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Sidebar from './sidebar';
 import Main from './main';
 import './App.css';
@@ -46,7 +46,7 @@ function App() {
     setMenu(menu === "" ? "hidden" : "");
     setToggler(toggler === "hidden" ? "" : "hidden");
   };
-
+  const hamburgerRef = useRef(null);
   function generateRandomId() {
     let id = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -144,7 +144,29 @@ function App() {
   //   });
   //   setNotes(updatedNotes);
   // };
+  const toggleSidebar = () => {
+    setMenu(menu === "" ? "hidden" : "");
+  };
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const hamburgerIcon = hamburgerRef.current;
 
+      if (
+        hamburgerIcon &&
+        !hamburgerIcon.contains(event.target) &&
+        window.innerWidth < 792 &&
+        menu === ''
+      ) {
+        setMenu("hidden");
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [menu]);
   return (
     <Router>
       <Routes>
@@ -159,12 +181,13 @@ function App() {
               </div>
             ) : (
               <>
-                <Sidebar menu={menu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId} />
-                <Main menu={menu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
-                <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")}>
+                <Sidebar menu={menu} setMenu={setMenu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId}
+                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} />
+                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
+                <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} ref={hamburgerRef}>
                   <i className="fa-solid fa-bars"></i>
                 </div>
-                <div className="user-container">
+                <div className="user-continer">
                   <User />
                 </div>
                 {showWelcomeText && (

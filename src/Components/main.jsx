@@ -17,7 +17,7 @@ function Main(props) {
     useEffect(() => {
         // Create audio element
         const newAudio = new Audio(editSound);
-        newAudio.volume = 0.75;
+        newAudio.volume = 0.25;
         newAudio.loop = true; // Set the audio to loop continuously
         setAudio(newAudio);
 
