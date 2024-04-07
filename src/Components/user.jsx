@@ -15,24 +15,20 @@ function User(props) {
         <div className="user-container">
             <div className="userDetails">
                 {/* Use Link to navigate to the sign-in page */}
-
                 <SignedOut>
-                    <div className="auth">
-                        <i className="fa-solid fa-circle-user"></i>
-                        <div className="links">
+                    <i className="fa-solid fa-circle-user"></i>
+                    <div className="links">
 
-                            <Link to="/login" className="userLink">
-                                <h2 className="userName">Login</h2>
-                            </Link><span>/</span>
-                            <Link to="/register" className="userLink">
-                                <h2 className="userName">Register</h2>
-                            </Link>
-                        </div>
+                        <Link to="/login" className="userLink">
+                            <h2 className="userName">Login</h2>
+                        </Link><span>/</span>
+                        <Link to="/register" className="userLink">
+                            <h2 className="userName">Register</h2>
+                        </Link>
                     </div>
-
                 </SignedOut>
                 <SignedIn>
-                    <UserButton signInUrl="register" />
+                    <UserButton showName={true} signInUrl="register" />
                 </SignedIn>
             </div>
         </div>

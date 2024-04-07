@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Sidebar from './sidebar';
 import Main from './main';
 import './App.css';
-import welcomeSound from './sounds/welcome_sound.mp3';
-import User from './user';
 
 function App() {
 
@@ -13,32 +11,7 @@ function App() {
   const [title, setTitle] = useState('Welcome Note');
   const [desc, setDesc] = useState('This is welcome note');
   const [noteId, setNoteId] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [showWelcomeText, setShowWelcomeText] = useState(false);
 
-  useEffect(() => {
-    // Simulating loading delay with setTimeout
-    const simulateLoading = () => {
-      setTimeout(() => {
-        setLoading(false);
-        setShowWelcomeText(true);
-      }, 500);
-      const playWelcomeSound = () => {
-        const audio = new Audio(welcomeSound);
-        audio.volume = 0.5;
-        audio.play();
-      };
-      setTimeout(() => {
-        setTimeout(() => {
-          playWelcomeSound()
-
-        }, 0);
-        setShowWelcomeText(false);
-      }, 3500);
-    };
-
-    simulateLoading();// Adjust the delay time as needed
-  }, []);
   const toggleMenu = () => {
     setMenu(menu === "" ? "hidden" : "");
     setToggler(toggler === "hidden" ? "" : "hidden");
@@ -144,31 +117,29 @@ function App() {
 
   return (
     <>
-      {loading && (
-        <div className="loaderContainer">
-          <div className="loader"></div>
-          <p className="text">Loading GoNote</p>
-        </div>
-      )}
-      {!loading && (
-        <>
-          <Sidebar menu={menu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId} />
-          <Main menu={menu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
-          <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} >
-            <i className="fa-solid fa-bars"></i>
-
-          </div>
-          <div className="user-continer">
-
-            <User />
-          </div>
-        </>
-      )}
-      {showWelcomeText && (
-        <div className="welcomeTextContainer">
-          <p className="typewriter">Welcome to GoNote</p>
-        </div>
-      )}
+      <Sidebar
+        menu={menu}
+        notesArray={notes}
+        setNotes={setNotes}
+        setTitle={setTitle}
+        setDesc={setDesc}
+        setNoteId={setNoteId}
+        toggleMenu={toggleMenu}
+        noteId={noteId}
+      />
+      <Main
+        menu={menu}
+        title={title}
+        description={desc}
+        noteId={noteId}
+        setTitle={setTitle}
+        setDesc={setDesc}
+        setNotes={setNotes}
+        notes={notes}
+      />
+      <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")}>
+        <i className="fa-solid fa-bars"></i>
+      </div>
     </>
   );
 }
