@@ -23,10 +23,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Router>
         <Routes>
           {/* Render sign in and sign up components when user is not logged in */}
-          <Route path="/login" element={<SignIn path='login' afterSignInUrl="" redirect_url="" signUpUrl="register " afterSignUpUrl="" />} />
-          <Route path="/register" element={<SignUp path='register' afterSignUpUrl="" redirect_url="" afterSignInUrl="" signInUrl="login" />} />
+          <Route exact path="/login" element={<SignIn path='login' afterSignInUrl="" redirect_url="" signUpUrl="register " afterSignUpUrl="" />} />
+          <Route exact path="/register" element={<SignUp path='register' afterSignUpUrl="" redirect_url="" afterSignInUrl="" signInUrl="login" />} />
 
-          <Route path="/" element={<App />} />
+
+
+          <Route exact path="/" element={<App />} />
         </Routes>
       </Router>
     </ClerkProvider>
