@@ -3,10 +3,11 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/",
+      "status": 200,
       "headers": {
         "Cache-Control": "s-maxage=0"
-      }
+      },
+      "dest": "/index.html"
     }
   ]
 }
