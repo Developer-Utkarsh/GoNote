@@ -24,9 +24,9 @@ function User(props) {
                             <Link to="/login" className="userLink">
                                 <h2 className="userName">Login</h2>
                             </Link><span>/</span>
-                            <Link to="/register" className="userLink">
+                            <a href="https://teaching-elephant-63.accounts.dev/sign-up" className="userLink">
                                 <h2 className="userName">Register</h2>
-                            </Link>
+                            </a>
                         </div>
                     </div>
 
