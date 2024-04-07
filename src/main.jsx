@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             path="/login"
             element={
               <div className="auth-container">
-                <SignIn path="login" afterSignInUrl="" redirect_url="" signUpUrl="/register" afterSignUpUrl="" />
+                <SignIn afterSignInUrl="" redirect_url="" signUpUrl="/register" afterSignUpUrl="" />
               </div>
             }
           />
@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             path="/register"
             element={
               <div className="auth-container">
-                <SignUp path="register" afterSignUpUrl="" redirect_url="" afterSignInUrl="/login" signInUrl="/login" />
+                <SignUp afterSignUpUrl="" redirect_url="" afterSignInUrl="/login" signInUrl="/login" />
               </div>
             }
           />
