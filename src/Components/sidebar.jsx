@@ -95,8 +95,7 @@ function Sidebar(props) {
         const handleOutsideClick = (event) => {
             const sidebarContainer = sidebarRef.current;
             const hamburgerIcon = props.hamburgerRef.current;
-            console.log(hamburgerIcon)
-            console.log(props.menu)
+
             if (
                 sidebarContainer &&
                 !sidebarContainer.contains(event.target) &&
@@ -106,7 +105,6 @@ function Sidebar(props) {
                 props.menu === ''
             ) {
                 props.toggleMenu();
-                console.log("toggled")
             }
         };
 

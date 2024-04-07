@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Sidebar from './sidebar';
 import Main from './main';
+import { useUser } from '@clerk/clerk-react';
+
 import './App.css';
 import welcomeSound from './sounds/welcome_sound.mp3';
 import User from './user';
@@ -9,7 +11,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react';
 
 function App() {
-
   const [menu, setMenu] = useState("");
   const [toggler, setToggler] = useState("hidden");
   const [notes, setNotes] = useState([]);
@@ -18,7 +19,9 @@ function App() {
   const [noteId, setNoteId] = useState('');
   const [loading, setLoading] = useState(true);
   const [showWelcomeText, setShowWelcomeText] = useState(false);
-
+  const { isSignedIn, user, isLoaded } = useUser();
+  const [firstname, setFirstname] = useState()
+  const [email, setEmail] = useState()
   useEffect(() => {
     // Simulating loading delay with setTimeout
     const simulateLoading = () => {
@@ -34,33 +37,20 @@ function App() {
       setTimeout(() => {
         setTimeout(() => {
           playWelcomeSound()
-
         }, 0);
         setShowWelcomeText(false);
       }, 3500);
     };
 
-    simulateLoading();// Adjust the delay time as needed
+    simulateLoading(); // Adjust the delay time as needed
   }, []);
+
   const toggleMenu = () => {
     setMenu(menu === "" ? "hidden" : "");
     setToggler(toggler === "hidden" ? "" : "hidden");
   };
+
   const hamburgerRef = useRef(null);
-  function generateRandomId() {
-    let id = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const idLength = 8; // Adjust the length as needed
-
-    do {
-      id = '';
-      for (let i = 0; i < idLength; i++) {
-        id += characters.charAt(Math.floor(Math.random() * characters.length));
-      }
-    } while (notes.some(note => note.id === id));
-
-    return id;
-  }
 
   useEffect(() => {
     function handleResize() {
@@ -81,15 +71,13 @@ function App() {
   if (!savedNotes) {
     localStorage.setItem('notes', JSON.stringify(notes));
     // 
-
   }
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchNotesFromLocalStorage = () => {
       if (savedNotes) {
         const parsedNotes = JSON.parse(savedNotes);
         setNotes(parsedNotes);
-
 
         // Set the first note as active if there are notes saved
         if (parsedNotes.length > 0) {
@@ -97,7 +85,6 @@ function App() {
           setTitle(firstNote.title);
           setDesc(firstNote.description);
           setNoteId(firstNote.id);
-
         } if (parsedNotes.length === 0) {
           // If there are no saved notes, create a default "Welcome Note"
           const currentDate = new Date();
@@ -115,7 +102,6 @@ function App() {
           setTitle(welcomeNote.title);
           setDesc(welcomeNote.description);
           setNoteId(welcomeNote.id);
-
         }
       }
     }
@@ -131,22 +117,10 @@ function App() {
     saveNotesToLocalStorage();
   }, [notes]);
 
-  // const updateNote = (noteId, updatedTitle, updatedDescription) => {
-  //   const updatedNotes = notes.map((note) => {
-  //     if (note.id === noteId) {
-  //       return {
-  //         ...note,
-  //         title: updatedTitle,
-  //         description: updatedDescription
-  //       };
-  //     }
-  //     return note;
-  //   });
-  //   setNotes(updatedNotes);
-  // };
   const toggleSidebar = () => {
     setMenu(menu === "" ? "hidden" : "");
   };
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       const hamburgerIcon = hamburgerRef.current;
@@ -167,6 +141,14 @@ function App() {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [menu]);
+  useEffect(() => {
+    // Log user email when user object changes
+    if (isSignedIn) {
+
+      setEmail(user.emailAddresses[0].emailAddress)
+      setFirstname(user.firstName)
+    }
+  }, [user]);
   return (
     <Router>
       <Routes>

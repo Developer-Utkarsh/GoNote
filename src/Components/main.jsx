@@ -86,7 +86,7 @@ function Main(props) {
 
     useEffect(() => {
         // Function to handle keydown events
-        const handleKeyDown = (event) => {
+        const handleKeyUp = (event) => {
             // Check if any key is pressed
             if (!isTyping) {
                 setIsTyping(true); // Set typing status to true when user starts typing
@@ -95,7 +95,7 @@ function Main(props) {
         };
 
         // Function to handle keyup events
-        const handleKeyUp = () => {
+        const handleKeyDown = () => {
             setIsTyping(false); // Set typing status to false when user stops typing
             stopEditSound(); // Stop edit sound when user stops typing
         };
