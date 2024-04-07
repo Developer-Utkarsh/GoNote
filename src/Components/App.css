@@ -1774,3 +1774,15 @@ transform: scale(1.1);
     display: flex;
   }
 }
+input.title {
+  background: #0e0e0e;
+  color: #eee;
+  border: none;
+  font-size: 2.5rem;
+  font-family: Signika Negative;
+  outline: none;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  width: 18rem;
+}
