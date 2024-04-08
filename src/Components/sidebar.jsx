@@ -34,10 +34,11 @@ function Sidebar(props) {
         props.setNotes(updatedNotesArray);
     };
 
-    const handleNoteClick = (noteId, noteTitle, noteDesc) => {
+    const handleNoteClick = (noteId, noteTitle, noteDesc, imagesArray) => {
         props.setTitle(noteTitle);
         props.setDesc(noteDesc);
         props.setNoteId(noteId);
+        props.setImagesArray(imagesArray)
     };
 
     function handleResize() {
@@ -51,7 +52,14 @@ function Sidebar(props) {
         const note = notesArray.find(obj => obj.id === noteId);
         handleResize()
         if (note) {
-            handleNoteClick(note.id, note.title, note.description);
+            if (!note.images) {
+                handleNoteClick(note.id, note.title, note.description);
+
+            }
+
+            handleNoteClick(note.id, note.title, note.description, note.images);
+
+
         }
     };
     const toggleSidebar = () => {

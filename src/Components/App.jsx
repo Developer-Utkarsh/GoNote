@@ -22,6 +22,7 @@ function App() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [firstname, setFirstname] = useState()
   const [email, setEmail] = useState()
+  const [imagesArray, setImagesArray] = useState()
   useEffect(() => {
     // Simulating loading delay with setTimeout
     const simulateLoading = () => {
@@ -85,6 +86,11 @@ function App() {
           setTitle(firstNote.title);
           setDesc(firstNote.description);
           setNoteId(firstNote.id);
+          if (!firstNote.images) {
+
+            setImagesArray()
+          }
+          setImagesArray(firstNote.images)
         } if (parsedNotes.length === 0) {
           // If there are no saved notes, create a default "Welcome Note"
           const currentDate = new Date();
@@ -149,6 +155,7 @@ function App() {
       setFirstname(user.firstName)
     }
   }, [user]);
+
   return (
     <Router>
       <Routes>
@@ -159,13 +166,13 @@ function App() {
             {loading ? (
               <div className="loaderContainer">
                 <div className="loader"></div>
-                <p className="text">Loading GoNote</p>
+                <p className="text">Launching GoNote</p>
               </div>
             ) : (
               <>
                 <Sidebar menu={menu} setMenu={setMenu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId}
-                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} />
-                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} />
+                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} setImagesArray={setImagesArray} imagesArray={imagesArray} />
+                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} imagesArray={imagesArray} setImagesArray={setImagesArray} />
                 <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} ref={hamburgerRef}>
                   <i className="fa-solid fa-bars"></i>
                 </div>

@@ -21,12 +21,15 @@ function User(props) {
                         <i className="fa-solid fa-circle-user"></i>
                         <div className="links">
 
-                            <Link to="/login" className="userLink">
-                                <h2 className="userName">Login</h2>
-                            </Link><span>/</span>
+
+                            <a className="userLink" href='https://teaching-elephant-63.accounts.dev/sign-in'><h2 className="userName">Login</h2></a>
+                            <span>/</span>
                             <a href="https://teaching-elephant-63.accounts.dev/sign-up" className="userLink">
                                 <h2 className="userName">Register</h2>
                             </a>
+
+
+
                         </div>
                     </div>
 

@@ -1,115 +1,137 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import FormattingContainer from './FormattingContainer';
-import editSound from './sounds/typing.mp3';
-
+import ImageContainer from './ImgContainer';
+import OpenedImage from './OpenedImage';
+import Alert from './Alert'
 function generateRandomId() {
     return Math.floor(Math.random() * 1000000).toString();
 }
 
 function Main(props) {
+    const [openedImage, setOpenedImage] = useState(null);
     const [animation, setAnimation] = useState('');
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description);
     const [showFormatting, setShowFormatting] = useState(false);
-    const [isTyping, setIsTyping] = useState(false); // Track typing status
-    const [audio, setAudio] = useState(null); // Track audio element
-
-    useEffect(() => {
-        // Create audio element
-        const newAudio = new Audio(editSound);
-        newAudio.volume = 0.25;
-        newAudio.loop = true; // Set the audio to loop continuously
-        setAudio(newAudio);
-
-        // Cleanup function to remove audio element
-        return () => {
-            if (audio) {
-                audio.pause();
-                setAudio(null);
-            }
-        };
-    }, []);
-
-    const playEditSound = () => {
-        if (audio) {
-            audio.currentTime = 0; // Reset the audio to start from the beginning
-            audio.play();
-        }
-    };
-
-    const stopEditSound = () => {
-        if (audio) {
-            audio.pause();
-        }
-    };
-
-    const handleTitleChange = (e) => {
-        if (!isTyping) {
-            setIsTyping(true); // Set typing status to true when user starts typing
-            playEditSound(); // Play edit sound when user starts typing
-        }
-        const newTitle = e.target.value;
-        if (newTitle.split(' ').length > 5 || newTitle.length > 15) {
-            const shortenedTitle = newTitle.substring(0, 15);
-            alert(`Title is too long! It will be shortened to: ${shortenedTitle}`);
-            setTitle(shortenedTitle);
-        } else {
-            setTitle(newTitle);
-        }
-        debouncedUpdateNoteInArray();
-    };
-
-    const handleDescChange = (e) => {
-        if (!isTyping) {
-            setIsTyping(true); // Set typing status to true when user starts typing
-            playEditSound(); // Play edit sound when user starts typing
-        }
-        setDescription(e.target.value);
-        debouncedUpdateNoteInArray();
-    };
-
-    const updateNoteInArray = useCallback(() => {
+    const [isTyping, setIsTyping] = useState(false);
+    const [audio, setAudio] = useState(null);
+    const [uploadedImages, setUploadedImages] = useState(props.imagesArray);
+    const [autoSaveInterval, setAutoSaveInterval] = useState(null);
+    const [isSaved, setIsSaved] = useState(true);
+    const saveNote = useCallback(() => {
         const updatedNotes = props.notes.map((note) => {
             if (note.id === props.noteId) {
-                return { ...note, title, description };
+                return { ...note, title, description, images: uploadedImages };
             }
             return note;
         });
         props.setNotes(updatedNotes);
-    }, [props.notes, props.noteId, title, description]);
+        setIsSaved(true);
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    }, [props.notes, props.noteId, title, description, uploadedImages]);
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault();
+                saveNote();
+            }
+        };
 
-    // Debouncing function
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+    const updateNoteInArray = useCallback(() => {
+        const updatedNotes = props.notes.map((note) => {
+            if (note.id === props.noteId) {
+                return { ...note, title, description, images: uploadedImages };
+            }
+            return note;
+        });
+        props.setNotes(updatedNotes);
+        setIsSaved(true);
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    }, [props.notes, props.noteId, title, description, uploadedImages]);
+
     const debouncedUpdateNoteInArray = useCallback(
-        debounce(updateNoteInArray, 750),
+        debounce(updateNoteInArray, 2000),
         [updateNoteInArray]
     );
 
     useEffect(() => {
-        // Function to handle keydown events
-        const handleKeyDown = (event) => {
-            // Check if any key is pressed
-            if (!isTyping) {
-                setIsTyping(true); // Set typing status to true when user starts typing
-                playEditSound(); // Play edit sound when user starts typing
-            }
-        };
+        const interval = setInterval(() => {
+            saveNote();
+        }, 15000);
 
-        // Function to handle keyup events
-        const handleKeyUp = () => {
-            setIsTyping(false); // Set typing status to false when user stops typing
-            stopEditSound(); // Stop edit sound when user stops typing
-        };
+        setAutoSaveInterval(interval);
 
-        // Add event listeners for keydown and keyup
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('keyup', handleKeyUp);
-
-        // Cleanup function to remove event listeners
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('keyup', handleKeyUp);
+            clearInterval(interval);
         };
-    }, [isTyping]);
+    }, [saveNote]);
+
+    useEffect(() => {
+        if (uploadedImages === undefined) {
+            setUploadedImages([]);
+        } else {
+            setUploadedImages(uploadedImages);
+        }
+    }, [uploadedImages]);
+
+    const handleImageUpload = (imageDataURL) => {
+        setUploadedImages((prevImages) => [...prevImages, imageDataURL]);
+
+        const updatedNote = {
+            ...props.notes.find((note) => note.id === props.noteId),
+            title,
+            description,
+            images: [...uploadedImages, imageDataURL],
+        };
+
+        const updatedNotes = props.notes.map((note) =>
+            note.id === props.noteId ? updatedNote : note
+        );
+
+        debouncedUpdateNoteInArray();
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    };
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleTitleChange = useCallback((e) => {
+        const newTitle = e.target.value;
+        if (newTitle.trim().length > 0) {
+            // Check if the new title exceeds the limit
+            if (newTitle.length > 20) {
+                // Show custom alert
+                setShowAlert(true);
+            } else {
+                setTitle(newTitle);
+                setIsSaved(false);
+                debouncedUpdateNoteInArray();
+            }
+        }
+    }, [debouncedUpdateNoteInArray]);
+
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+        // Trim title to 18 characters
+        setTitle(title.slice(0, 18));
+        setIsSaved(false);
+        debouncedUpdateNoteInArray();
+    };
+
+    const handleDescChange = useCallback((e) => {
+        const newDescription = e.target.value;
+        setDescription(newDescription);
+        setIsSaved(false);
+        debouncedUpdateNoteInArray();
+    }, [debouncedUpdateNoteInArray]);
+
+
+
 
     useEffect(() => {
         const checkForSelection = () => {
@@ -128,21 +150,83 @@ function Main(props) {
         setAnimation('show');
         setTitle(props.title);
         setDescription(props.description);
-    }, [props.noteId, props.title, props.description]);
+        setUploadedImages(props.imagesArray);
+    }, [props.noteId, props.title, props.description, props.imagesArray]);
+
+    const handleImageRemoval = (index) => {
+        const updatedImages = [...uploadedImages];
+        updatedImages.splice(index, 1);
+        setUploadedImages(updatedImages);
+
+        const updatedNote = {
+            ...props.notes.find((note) => note.id === props.noteId),
+            title,
+            description,
+            images: updatedImages,
+        };
+
+        const updatedNotes = props.notes.map((note) =>
+            note.id === props.noteId ? updatedNote : note
+        );
+
+        props.setNotes(updatedNotes);
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    };
+
+    const fetchImagesFromStorage = () => {
+        const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+        const noteWithImages = storedNotes.find((note) => note.id === props.noteId);
+
+        if (noteWithImages && noteWithImages.images) {
+            setUploadedImages(noteWithImages.images);
+        } else {
+            setUploadedImages([]);
+        }
+    };
+
+    useEffect(() => {
+        fetchImagesFromStorage();
+    }, [props.noteId]);
 
     return (
         <>
             <div className={`container ${props.menu === 'hidden' ? 'active' : ''}`}>
+                {showAlert && <Alert message="Title should not exceed 20 characters!" onClose={handleCloseAlert} />}
                 <div className="noteContainer">
-                    <div className={`noteHeading   ${props.loading === false && props.showWelcomeText === false && animation === 'show' ? 'show' : ''}`}>
-                        <input
-                            type="text"
-                            className={`title  ${props.loading === false && props.showWelcomeText === false && animation === 'show' ? 'showinp' : ''}`}
-                            value={title}
-                            onChange={handleTitleChange}
-                        />
+                    <div className="mainComponent">
+                        <div
+                            className={`noteHeading   ${props.loading === false &&
+                                props.showWelcomeText === false &&
+                                animation === 'show'
+                                ? 'show'
+                                : ''
+                                }`}
+                        >
+                            <input
+                                type="text"
+                                className={`title  ${props.loading === false &&
+                                    props.showWelcomeText === false &&
+                                    animation === 'show'
+                                    ? 'showinp'
+                                    : ''
+                                    }`}
+                                value={title}
+                                onChange={handleTitleChange}
+                            />
+                        </div>
+                        <div className="saveIcon" onClick={saveNote}>
+                            <i
+                                className={`${isSaved ? 'fa fa-save' : 'fa fa-cloud-upload-alt'} ${isSaved ? 'saved' : 'unsaved'}`}
+                            ></i>
+                        </div>
                     </div>
                     <div className="noteDesc">
+                        <ImageContainer
+                            handleImageUpload={handleImageUpload}
+                            uploadedImages={uploadedImages}
+                            handleImageRemoval={handleImageRemoval}
+                            setOpenedImage={setOpenedImage}
+                        />
                         <textarea
                             type="text"
                             className="noteDesc"
@@ -151,12 +235,11 @@ function Main(props) {
                         />
                     </div>
                 </div>
-            </div >
+            </div>
+            {openedImage && <OpenedImage openedImage={openedImage} setOpenedImage={setOpenedImage} />}
         </>
     );
 }
-
-// Debounce function
 function debounce(func, delay) {
     let timeoutId;
     return (...args) => {
@@ -166,5 +249,4 @@ function debounce(func, delay) {
         }, delay);
     };
 }
-
 export default Main;
