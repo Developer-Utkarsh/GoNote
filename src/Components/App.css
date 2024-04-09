@@ -382,8 +382,8 @@ h2.userName {
   transition: 0.3s ease-in-out;
 }
 span {
-    color: #333;
-    margin-left: 0.5rem;
+  color: #333;
+  margin-left: 0.5rem;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -2355,14 +2355,14 @@ span {
   color: #fff;
   cursor: pointer;
 }
-.loaderContainer .text{
-  font-size:2rem;
+.loaderContainer .text {
+  font-size: 2rem;
 }
 .mainComponent {
   display: flex;
   justify-content: space-between;
   width: 45%;
-  align-items:center;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 .saveIcon {
@@ -2370,7 +2370,7 @@ span {
   color: #ccc;
   margin-left: 1.5rem;
 }
-.noteHeading{
+.noteHeading {
   margin-bottom: 0;
 }
 .noteHeading {
@@ -2427,8 +2427,8 @@ input.title {
   align-items: center;
   width: 100%;
 }
-@media (max-width:1292px){
-.mainComponent {
+@media (max-width: 1292px) {
+  .mainComponent {
     display: flex;
     justify-content: flex-start;
     width: 60%;
@@ -2436,8 +2436,8 @@ input.title {
     margin-bottom: 1.5rem;
   }
 }
-@media (max-width:992px){
-.mainComponent {
+@media (max-width: 992px) {
+  .mainComponent {
     display: flex;
     justify-content: flex-start;
     width: 75%;
@@ -2445,8 +2445,8 @@ input.title {
     margin-bottom: 1.5rem;
   }
 }
-@media (max-width:594px){
-.mainComponent {
+@media (max-width: 594px) {
+  .mainComponent {
     display: flex;
     justify-content: flex-start;
     width: 85%;
@@ -2459,7 +2459,11 @@ input.title {
   top: 10%; /* Vertically center */
   transform: translateY(-50%); /* Adjust for centering */
   color: #ccc;
-  background: linear-gradient(to right , var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   padding: 0.75rem 1.25rem;
   display: flex;
   justify-content: center;
@@ -2473,14 +2477,13 @@ input.title {
   max-width: 90%; /* Responsive width */
   transform: translateX(-50%) translateY(-50%); /* Adjust for centering */
   z-index: 99999;
-
 }
 
 .custom-alert-content {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  font-family: 'Average Sans';
+  font-family: "Average Sans";
   align-items: center;
 }
 .custom-alert button {
@@ -2493,7 +2496,7 @@ input.title {
   background: #8bc34a;
   font-weight: 700;
   letter-spacing: 0.5px;
-  transition:0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .custom-alert button:hover {
   margin-left: 2rem;
@@ -2506,8 +2509,8 @@ input.title {
   font-weight: 700;
   letter-spacing: 0.5px;
 }
-a{
-  text-decoration:none;
+a {
+  text-decoration: none;
 }
 input.title {
   display: flex;
@@ -2516,4 +2519,205 @@ input.title {
 }
 .show {
   animation: typewriter 2s;
+}
+.noteDesc textarea {
+  height: 55vh;
+}
+.tagContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: #ccc;
+  padding-top: 0.5rem;
+  padding-right: 5rem;
+  font-size: 1.5rem;
+}
+.tagBg {
+  width: auto;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding-bottom: 2px;
+}
+.tag {
+  background: #0e0e0e;
+  color: #777;
+}
+.tagBg {
+  width: auto;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding-bottom: 2px;
+  margin-right: 0.75rem;
+}
+.tag {
+  background: #0e0e0e;
+  color: #7c7c7c;
+}
+input.tag {
+  outline: none;
+  border: none;
+  padding-top: 0.3rem;
+  text-align: end;
+  font-size: 1.75rem;
+  font-family: "Signika Negative";
+}
+.tagContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: #ccc;
+  padding-top: 0.5rem;
+  padding-right: 0;
+  font-size: 1.5rem;
+}
+.noteDesc {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+  margin-top: 0;
+  position: static;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-left: 1rem;
+}
+.tagBg {
+  width: 20%;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding-bottom: 2px;
+  margin-right: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.tagActive {
+  color: #ccc;
+}
+
+.tagBg {
+  width: 15%;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding-bottom: 2px;
+  margin-right: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.noteDesc textarea {
+  height: 53vh;
+}
+.noteDesc textarea {
+  border: none;
+  font-size: 1.25rem;
+  color: #ccc;
+  font-family: "Average Sans";
+  outline: none;
+  width: 100%;
+  height: 52vh;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+  background-color: #0e0e0e;
+  line-height: 1.6rem;
+  resize: none;
+  border-radius: 1rem;
+  margin: 0;
+  padding: 0.1rem 0;
+}
+.noteContainer {
+  /* width: 100%; */
+  padding: 0;
+  /* height: 100vh; */
+  padding-top: 3rem;
+  padding-left: 3rem;
+}
+.noteDesc {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+  margin-top: 0;
+  position: static;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-left: 0;
+}
+
+.noteTag {
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.noteTag {
+  border-top: 0.5px solid #555;
+  border-right: 0.5px solid #555;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0.25rem 0.5rem;
+  color: #ccc;
+  border-top-right-radius: 1rem;
+  background: #1e1e1e;
+}
+.note:hover .noteTag{
+  background-color: #0c0c0c;
+}
+.currentNote .noteTag{
+  color: #eee;
+  background-color: #0c0c0c;
+    border-top: 0.5px solid #ccc;
+      border-right: 0.5px solid #ccc;
+}
+@media (max-width:1192px){
+  .tagBg {
+    width: 20%;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    padding-bottom: 2px;
+    margin-right: 0.75rem;
+    display: flex;
+    justify-content: flex-end;
+}
+}
+@media (max-width:1024px){
+  .tagBg {
+    width: 25%;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    padding-bottom: 2px;
+    margin-right: 0.75rem;
+    display: flex;
+    justify-content: flex-end;
+}
+}
+@media (max-width:872px){
+  .tagBg {
+    width: 28%;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    padding-bottom: 2px;
+    margin-right: 0.75rem;
+    display: flex;
+    justify-content: flex-end;
+}
+}
+.currentNote .noteTag {
+  color: #eee;
+  background-color: #171717;
+  border-top: 0.5px solid #ccc;
+  border-right: 0.5px solid #ccc;
 }

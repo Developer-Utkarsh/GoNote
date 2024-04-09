@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import ImageUpload from './ImgUpload';
 
 function ImageContainer({ handleImageUpload, uploadedImages, handleImageRemoval, setOpenedImage }) {
-    const [showImages, setShowImages] = useState()
+    const [showImages, setShowImages] = useState(false);
     useEffect(() => {
-        if (uploadedImages = '') {
-            setShowImages(false)
+        if (!uploadedImages || uploadedImages.length === 0) {
+            setShowImages(false);
+        } else {
+            setShowImages(true);
         }
-        setShowImages(true)
-    }, [uploadedImages])
+    }, [uploadedImages]);
 
     return (
         <div className="image-container">
             <div className="images">
                 <ImageUpload onImageUpload={handleImageUpload} />
-
-                {showImages === true &&
+                {showImages && (
                     uploadedImages.map((imageDataURL, index) => (
                         <div className="image-wrapper" key={index}>
                             <img
@@ -25,14 +25,14 @@ function ImageContainer({ handleImageUpload, uploadedImages, handleImageRemoval,
                                 onClick={() => setOpenedImage(imageDataURL)}
                             />
                             <div className="delete-icon" onClick={() => handleImageRemoval(index)}>
-                                <i className='fa fa-trash'></i>
+                                <i className="fa fa-trash"></i>
                             </div>
                         </div>
                     ))
-                }
+                )}
             </div>
         </div>
     );
-};
+}
 
 export default ImageContainer;

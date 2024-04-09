@@ -34,11 +34,12 @@ function Sidebar(props) {
         props.setNotes(updatedNotesArray);
     };
 
-    const handleNoteClick = (noteId, noteTitle, noteDesc, imagesArray) => {
+    const handleNoteClick = (noteId, noteTitle, noteDesc, imagesArray, noteTag) => {
         props.setTitle(noteTitle);
         props.setDesc(noteDesc);
         props.setNoteId(noteId);
         props.setImagesArray(imagesArray)
+        props.setTag(noteTag)
     };
 
     function handleResize() {
@@ -57,7 +58,7 @@ function Sidebar(props) {
 
             }
 
-            handleNoteClick(note.id, note.title, note.description, note.images);
+            handleNoteClick(note.id, note.title, note.description, note.images, note.tag);
 
 
         }
@@ -96,7 +97,7 @@ function Sidebar(props) {
         const updatedNotesArray = [newNote, ...notesArray];
         setNotesArray(updatedNotesArray);
         props.setNotes(updatedNotesArray);
-        handleNoteClick(newNote.id, newNote.title, newNote.description);
+        handleNoteClick(newNote.id, newNote.title, newNote.description, newNote.tag);
     };
 
     useEffect(() => {
@@ -154,6 +155,7 @@ function Sidebar(props) {
                                     noteId={props.noteId}
                                     currentNoteId={note.id}
                                     deleteNote={deleteNote}
+                                    tag={props.tag}
                                 />
                             ))}
                         </div>

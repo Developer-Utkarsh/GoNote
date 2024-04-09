@@ -59,6 +59,14 @@ function Note(props) {
         e.stopPropagation(); // Prevent the note click event from firing
         props.deleteNote(props.note.id);
     };
+    const [tagSituation, setTagSituation] = useState(false)
+    useEffect(() => {
+        if (props.note.tag === "TAG") {
+            setTagSituation(false)
+        }
+        setTagSituation(true)
+
+    }, [tagSituation])
 
     return (
         <>
@@ -71,6 +79,12 @@ function Note(props) {
                         <p className="desc">{description}</p>
                     </div>
                     <div className="note-footer">
+                        {props.note.tag && props.note.tag !== "TAG" && <div className="noteTag">
+                            <div className="tagNote">
+                                <p>{props.note.tag}</p>
+                            </div>
+
+                        </div>}
                         <p className="time">{props.note.date}<span className="time"> -{props.note.time}</span></p>
                     </div>
                     <div className="deleteContainer" onClick={handleDeleteNote}>

@@ -36,6 +36,8 @@ function AddNote(props) {
             description: noteDescription,
             date: formattedDate,
             time: formattedTime,
+            tag: "TAG",
+            images: [],
             id: generateRandomId()
         };
         props.addNewNote(newNote);

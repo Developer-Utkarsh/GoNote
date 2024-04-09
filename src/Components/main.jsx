@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FormattingContainer from './FormattingContainer';
 import ImageContainer from './ImgContainer';
 import OpenedImage from './OpenedImage';
-import Alert from './Alert'
+import Alert from './Alert';
+
 function generateRandomId() {
     return Math.floor(Math.random() * 1000000).toString();
 }
 
 function Main(props) {
+    const { tag, setTag } = props
     const [openedImage, setOpenedImage] = useState(null);
     const [animation, setAnimation] = useState('');
     const [title, setTitle] = useState(props.title);
@@ -18,17 +20,36 @@ function Main(props) {
     const [uploadedImages, setUploadedImages] = useState(props.imagesArray);
     const [autoSaveInterval, setAutoSaveInterval] = useState(null);
     const [isSaved, setIsSaved] = useState(true);
+    const [tagCondition, setTagCondition] = useState("");
+
+    useEffect(() => {
+        if (props.tag) {
+
+            const capital = props.tag.toUpperCase();
+            props.setTag(capital);
+            if (props.tag === "TAG") {
+                setTagCondition('');
+            } else {
+                setTagCondition('tagActive');
+            }
+        }
+        else {
+            props.setTag("TAG")
+        }
+    }, [props.tag]);
+
     const saveNote = useCallback(() => {
         const updatedNotes = props.notes.map((note) => {
             if (note.id === props.noteId) {
-                return { ...note, title, description, images: uploadedImages };
+                return { ...note, title, description, images: uploadedImages, tag };
             }
             return note;
         });
         props.setNotes(updatedNotes);
         setIsSaved(true);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-    }, [props.notes, props.noteId, title, description, uploadedImages]);
+    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag]);
+
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.ctrlKey && event.key === 's') {
@@ -42,28 +63,28 @@ function Main(props) {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [saveNote]);
     const updateNoteInArray = useCallback(() => {
         const updatedNotes = props.notes.map((note) => {
             if (note.id === props.noteId) {
-                return { ...note, title, description, images: uploadedImages };
+                return { ...note, title, description, images: uploadedImages, tag: props.tag }; // Include the tag value
             }
             return note;
         });
         props.setNotes(updatedNotes);
         setIsSaved(true);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-    }, [props.notes, props.noteId, title, description, uploadedImages]);
+    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag]);
 
     const debouncedUpdateNoteInArray = useCallback(
-        debounce(updateNoteInArray, 2000),
+        debounce(updateNoteInArray, 1000),
         [updateNoteInArray]
     );
 
     useEffect(() => {
         const interval = setInterval(() => {
             saveNote();
-        }, 15000);
+        }, 5000);
 
         setAutoSaveInterval(interval);
 
@@ -75,27 +96,30 @@ function Main(props) {
     useEffect(() => {
         if (uploadedImages === undefined) {
             setUploadedImages([]);
-        } else {
-            setUploadedImages(uploadedImages);
         }
     }, [uploadedImages]);
 
     const handleImageUpload = (imageDataURL) => {
-        setUploadedImages((prevImages) => [...prevImages, imageDataURL]);
+
+        setUploadedImages((prevImages) => (prevImages ? [...prevImages, imageDataURL] : [imageDataURL]));
 
         const updatedNote = {
             ...props.notes.find((note) => note.id === props.noteId),
             title,
             description,
-            images: [...uploadedImages, imageDataURL],
+            images: [...(uploadedImages || []), imageDataURL],
+            tag
         };
 
         const updatedNotes = props.notes.map((note) =>
             note.id === props.noteId ? updatedNote : note
         );
 
+        saveNote();
         debouncedUpdateNoteInArray();
+        setIsSaved(false);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
+
     };
 
     const [showAlert, setShowAlert] = useState(false);
@@ -103,9 +127,7 @@ function Main(props) {
     const handleTitleChange = useCallback((e) => {
         const newTitle = e.target.value;
         if (newTitle.trim().length > 0) {
-            // Check if the new title exceeds the limit
             if (newTitle.length > 20) {
-                // Show custom alert
                 setShowAlert(true);
             } else {
                 setTitle(newTitle);
@@ -115,9 +137,26 @@ function Main(props) {
         }
     }, [debouncedUpdateNoteInArray]);
 
+    const handleTag = useCallback((e) => {
+        const newTag = e.target.value;
+        if (newTag.length > 0) {
+            if (newTag.length > 10) {
+                setShowAlert(true);
+            } else {
+                props.setTag(newTag);
+                setIsSaved(false);
+                debouncedUpdateNoteInArray();
+            }
+        } else {
+            // If the input is an empty string, set the tag to an empty string
+            props.setTag("");
+            setIsSaved(false);
+            debouncedUpdateNoteInArray();
+        }
+    }, [debouncedUpdateNoteInArray, props.setTag]);
+
     const handleCloseAlert = () => {
         setShowAlert(false);
-        // Trim title to 18 characters
         setTitle(title.slice(0, 18));
         setIsSaved(false);
         debouncedUpdateNoteInArray();
@@ -129,9 +168,6 @@ function Main(props) {
         setIsSaved(false);
         debouncedUpdateNoteInArray();
     }, [debouncedUpdateNoteInArray]);
-
-
-
 
     useEffect(() => {
         const checkForSelection = () => {
@@ -151,7 +187,8 @@ function Main(props) {
         setTitle(props.title);
         setDescription(props.description);
         setUploadedImages(props.imagesArray);
-    }, [props.noteId, props.title, props.description, props.imagesArray]);
+        props.setTag(props.tag); // Ensure tag is set from props
+    }, [props.noteId, props.title, props.description, props.imagesArray, props.tag]);
 
     const handleImageRemoval = (index) => {
         const updatedImages = [...uploadedImages];
@@ -163,6 +200,7 @@ function Main(props) {
             title,
             description,
             images: updatedImages,
+            tag
         };
 
         const updatedNotes = props.notes.map((note) =>
@@ -233,6 +271,11 @@ function Main(props) {
                             value={description}
                             onChange={handleDescChange}
                         />
+                        <div className="tagContainer">
+                            <div className="tagBg">
+                                <input type="text" className={`tag ${tagCondition}`} value={props.tag} onChange={handleTag} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -240,13 +283,15 @@ function Main(props) {
         </>
     );
 }
+
 function debounce(func, delay) {
     let timeoutId;
     return (...args) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
-            func(...args); // Using functional form of setState to access latest state values
+            func(...args);
         }, delay);
     };
 }
+
 export default Main;

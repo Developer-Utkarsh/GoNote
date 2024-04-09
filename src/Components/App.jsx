@@ -23,6 +23,8 @@ function App() {
   const [firstname, setFirstname] = useState()
   const [email, setEmail] = useState()
   const [imagesArray, setImagesArray] = useState()
+  const [tag, setTag] = useState("TAG");
+
   useEffect(() => {
     // Simulating loading delay with setTimeout
     const simulateLoading = () => {
@@ -86,12 +88,9 @@ function App() {
           setTitle(firstNote.title);
           setDesc(firstNote.description);
           setNoteId(firstNote.id);
-          if (!firstNote.images) {
-
-            setImagesArray()
-          }
-          setImagesArray(firstNote.images)
-        } if (parsedNotes.length === 0) {
+          setTag(firstNote.tag || "TAG");
+          setImagesArray(firstNote.images || []); // Set imagesArray to an empty array if images is undefined
+        } else {
           // If there are no saved notes, create a default "Welcome Note"
           const currentDate = new Date();
           const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -108,10 +107,11 @@ function App() {
           setTitle(welcomeNote.title);
           setDesc(welcomeNote.description);
           setNoteId(welcomeNote.id);
+          setTag("TAG");
+          setImagesArray([]); // Set imagesArray to an empty array for the default note
         }
       }
-    }
-
+    };
     fetchNotesFromLocalStorage();
   }, []);
 
@@ -155,7 +155,11 @@ function App() {
       setFirstname(user.firstName)
     }
   }, [user]);
-
+  useEffect(() => {
+    if (tag) {
+      setTag(tag.toUpperCase())
+    }
+  })
   return (
     <Router>
       <Routes>
@@ -171,8 +175,8 @@ function App() {
             ) : (
               <>
                 <Sidebar menu={menu} setMenu={setMenu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId}
-                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} setImagesArray={setImagesArray} imagesArray={imagesArray} />
-                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} imagesArray={imagesArray} setImagesArray={setImagesArray} />
+                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} setImagesArray={setImagesArray} imagesArray={imagesArray} tag={tag} setTag={setTag} />
+                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} imagesArray={imagesArray} setImagesArray={setImagesArray} tag={tag} setTag={setTag} />
                 <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} ref={hamburgerRef}>
                   <i className="fa-solid fa-bars"></i>
                 </div>
