@@ -3250,3 +3250,63 @@ color:var(--blue);
 .green{
   box-shadow:0 1px 4px var(--green);
 }
+.rednote .noteTag {
+ 
+  border-top: .5px solid var(--red);
+  border-right: .5px solid var(--red);
+  
+}
+.greennote .noteTag {
+ 
+  border-top: .5px solid var(--green);
+  border-right: .5px solid var(--green);
+  
+}
+.greennote .noteTag {
+ 
+  border-top: .5px solid var(--green);
+  border-right: .5px solid var(--green);
+  
+}
+.yellownote .noteTag {
+ 
+  border-top: .5px solid var(--yellow);
+  border-right: .5px solid var(--yellow);
+  
+}
+.bluenote .noteTag {
+ 
+  border-top: .5px solid var(--blue);
+  border-right: .5px solid var(--blue);
+  
+}
+.rednote:hover{
+  box-shadow:0 1px 6px var(--red)
+}
+.rednote.currentNote{
+  box-shadow:0 1px 6px var(--red)
+}
+.greennote:hover{
+  box-shadow:0 1px 6px var(--green)
+}
+.greennote.currentNote{
+  box-shadow:0 1px 6px var(--green)
+}
+.yellownote:hover{
+  box-shadow:0 1px 6px var(--yellow)
+}
+.yellownote.currentNote{
+  box-shadow:0 1px 6px var(--yellow)
+}
+.bluenote:hover{
+  box-shadow:0 1px 6px var(--blue)
+}
+.bluenote.currentNote{
+  box-shadow:0 1px 6px var(--blue)
+}
+.purplenote:hover{
+  box-shadow:0 1px 6px var(--purple)
+}
+.purplenote.currentNote{
+  box-shadow:0 1px 6px var(--purple)
+}
