@@ -23,8 +23,8 @@ function App() {
   const [firstname, setFirstname] = useState()
   const [email, setEmail] = useState()
   const [imagesArray, setImagesArray] = useState()
-  const [tag, setTag] = useState("TAG");
-
+  const [tag, setTag] = useState();
+  const [theme, setTheme] = useState('')
   useEffect(() => {
     // Simulating loading delay with setTimeout
     const simulateLoading = () => {
@@ -77,6 +77,7 @@ function App() {
   }
 
   useEffect(() => {
+    // App.jsx
     const fetchNotesFromLocalStorage = () => {
       if (savedNotes) {
         const parsedNotes = JSON.parse(savedNotes);
@@ -89,7 +90,9 @@ function App() {
           setDesc(firstNote.description);
           setNoteId(firstNote.id);
           setTag(firstNote.tag || "TAG");
-          setImagesArray(firstNote.images || []); // Set imagesArray to an empty array if images is undefined
+
+          setImagesArray(firstNote.images || []);
+          setTheme(firstNote.theme || ''); // Set the theme from local storage or an empty string
         } else {
           // If there are no saved notes, create a default "Welcome Note"
           const currentDate = new Date();
@@ -108,7 +111,8 @@ function App() {
           setDesc(welcomeNote.description);
           setNoteId(welcomeNote.id);
           setTag("TAG");
-          setImagesArray([]); // Set imagesArray to an empty array for the default note
+          setImagesArray([]);
+          setTheme(''); // Set the default theme to an empty string
         }
       }
     };
@@ -160,6 +164,7 @@ function App() {
       setTag(tag.toUpperCase())
     }
   })
+
   return (
     <Router>
       <Routes>
@@ -175,8 +180,8 @@ function App() {
             ) : (
               <>
                 <Sidebar menu={menu} setMenu={setMenu} notesArray={notes} setNotes={setNotes} setTitle={setTitle} setDesc={setDesc} setNoteId={setNoteId} toggleMenu={toggleMenu} noteId={noteId}
-                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} setImagesArray={setImagesArray} imagesArray={imagesArray} tag={tag} setTag={setTag} />
-                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} imagesArray={imagesArray} setImagesArray={setImagesArray} tag={tag} setTag={setTag} />
+                  toggleSidebar={toggleSidebar} hamburgerRef={hamburgerRef} setImagesArray={setImagesArray} imagesArray={imagesArray} tag={tag} setTag={setTag} theme={theme} setTheme={setTheme} />
+                <Main menu={menu} setMenu={setMenu} title={title} description={desc} noteId={noteId} setTitle={setTitle} setDesc={setDesc} setNotes={setNotes} notes={notes} showWelcomeText={showWelcomeText} loading={loading} imagesArray={imagesArray} setImagesArray={setImagesArray} tag={tag} setTag={setTag} theme={theme} setTheme={setTheme} />
                 <div className={`mainToggler ${menu === "hidden" ? "active" : ""}`} onClick={() => setMenu(menu === "" ? "hidden" : "")} ref={hamburgerRef}>
                   <i className="fa-solid fa-bars"></i>
                 </div>

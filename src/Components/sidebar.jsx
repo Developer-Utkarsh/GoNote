@@ -34,33 +34,30 @@ function Sidebar(props) {
         props.setNotes(updatedNotesArray);
     };
 
-    const handleNoteClick = (noteId, noteTitle, noteDesc, imagesArray, noteTag) => {
-        props.setTitle(noteTitle);
-        props.setDesc(noteDesc);
-        props.setNoteId(noteId);
-        props.setImagesArray(imagesArray)
-        props.setTag(noteTag)
-    };
-
     function handleResize() {
         if (window.innerWidth < 792) {
             props.toggleMenu();
         }
     }
-
+    // Sidebar.jsx
+    const handleNoteClick = (noteId, noteTitle, noteDesc, imagesArray, noteTag, noteTheme) => {
+        props.setTitle(noteTitle);
+        props.setDesc(noteDesc);
+        props.setNoteId(noteId);
+        props.setImagesArray(imagesArray);
+        props.setTag(noteTag);
+        props.setTheme(noteTheme); // Pass the theme to the Main component
+    };
 
     const onNoteClick = (noteId) => {
-        const note = notesArray.find(obj => obj.id === noteId);
-        handleResize()
+        const note = notesArray.find((obj) => obj.id === noteId);
+        handleResize();
         if (note) {
             if (!note.images) {
-                handleNoteClick(note.id, note.title, note.description);
-
+                handleNoteClick(note.id, note.title, note.description, null, note.tag, note.theme);
+            } else {
+                handleNoteClick(note.id, note.title, note.description, note.images, note.tag, note.theme);
             }
-
-            handleNoteClick(note.id, note.title, note.description, note.images, note.tag);
-
-
         }
     };
     const toggleSidebar = () => {
@@ -156,6 +153,7 @@ function Sidebar(props) {
                                     currentNoteId={note.id}
                                     deleteNote={deleteNote}
                                     tag={props.tag}
+                                    theme={props.theme}
                                 />
                             ))}
                         </div>

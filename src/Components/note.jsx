@@ -44,8 +44,9 @@ function Note(props) {
         return truncatedString;
     }
 
+    // Note.jsx
     const handleNoteClick = () => {
-        props.onNoteClick(props.note.id, props.note.title, props.note.description);
+        props.onNoteClick(props.note.id, props.note.title, props.note.description, props.note.images, props.note.tag, props.note.theme);
     };
 
     const playDeleteSound = () => {
@@ -70,7 +71,7 @@ function Note(props) {
 
     return (
         <>
-            <div className={`note ${activeNote === 'active' ? 'currentNote' : ''}`} onClick={handleNoteClick}>
+            <div className={`note ${activeNote === 'active' ? 'currentNote' : ''} ${props.note.theme ? props.note.theme + "note themeNote" : ''}`} onClick={handleNoteClick}>
                 <div className={`note-items ${activeNote === 'active' ? 'activeNote' : ''}`}>
                     <div className="note-header">
                         <div className="titleContainer">

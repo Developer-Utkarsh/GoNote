@@ -1,8 +1,10 @@
+// ImgContainer.jsx
 import React, { useState, useEffect } from 'react';
 import ImageUpload from './ImgUpload';
 
 function ImageContainer({ handleImageUpload, uploadedImages, handleImageRemoval, setOpenedImage }) {
     const [showImages, setShowImages] = useState(false);
+
     useEffect(() => {
         if (!uploadedImages || uploadedImages.length === 0) {
             setShowImages(false);
@@ -15,7 +17,7 @@ function ImageContainer({ handleImageUpload, uploadedImages, handleImageRemoval,
         <div className="image-container">
             <div className="images">
                 <ImageUpload onImageUpload={handleImageUpload} />
-                {showImages && (
+                {showImages && Array.isArray(uploadedImages) && (
                     uploadedImages.map((imageDataURL, index) => (
                         <div className="image-wrapper" key={index}>
                             <img

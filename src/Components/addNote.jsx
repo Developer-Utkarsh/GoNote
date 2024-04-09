@@ -24,8 +24,9 @@ function AddNote(props) {
         audio.volume = 0.5;
         audio.play();
     };
+    // AddNote.jsx
     const handleAddNote = () => {
-        playsuccessSound()
+        playsuccessSound();
 
         const currentDate = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -36,15 +37,13 @@ function AddNote(props) {
             description: noteDescription,
             date: formattedDate,
             time: formattedTime,
-            tag: "TAG",
-            images: [],
+            tag: "TAG", // Set the default tag to 'TAG'
+            images: [], // Set the default images to an empty array
             id: generateRandomId()
         };
         props.addNewNote(newNote);
         setNoteTitle('New Note');
         setNoteDescription('New Note Description');
-        // Trigger celebration effect
-        // Remove the class after 3 seconds
     };
 
     return (

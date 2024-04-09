@@ -21,10 +21,14 @@ function Main(props) {
     const [autoSaveInterval, setAutoSaveInterval] = useState(null);
     const [isSaved, setIsSaved] = useState(true);
     const [tagCondition, setTagCondition] = useState("");
-
+    // Main.jsx
+    useEffect(() => {
+        if (uploadedImages === undefined) {
+            setUploadedImages([]);
+        }
+    }, [uploadedImages]);
     useEffect(() => {
         if (props.tag) {
-
             const capital = props.tag.toUpperCase();
             props.setTag(capital);
             if (props.tag === "TAG") {
@@ -33,22 +37,23 @@ function Main(props) {
                 setTagCondition('tagActive');
             }
         }
-        else {
-            props.setTag("TAG")
-        }
+        props.setTag("TAG")
+
+
     }, [props.tag]);
 
+    // Main.jsx
     const saveNote = useCallback(() => {
         const updatedNotes = props.notes.map((note) => {
             if (note.id === props.noteId) {
-                return { ...note, title, description, images: uploadedImages, tag };
+                return { ...note, title, description, images: uploadedImages, tag, theme: props.theme };
             }
             return note;
         });
         props.setNotes(updatedNotes);
         setIsSaved(true);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag]);
+    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag, props.theme]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -182,16 +187,18 @@ function Main(props) {
         };
     }, []);
 
+    // Main.jsx
     useEffect(() => {
         setAnimation('show');
         setTitle(props.title);
         setDescription(props.description);
         setUploadedImages(props.imagesArray);
-        props.setTag(props.tag); // Ensure tag is set from props
-    }, [props.noteId, props.title, props.description, props.imagesArray, props.tag]);
+        props.setTag(props.tag);
+        props.setTheme(props.theme); // Set the theme from props
+    }, [props.noteId, props.title, props.description, props.imagesArray, props.tag, props.theme]);
 
     const handleImageRemoval = (index) => {
-        const updatedImages = [...uploadedImages];
+        const updatedImages = [...(uploadedImages || [])];
         updatedImages.splice(index, 1);
         setUploadedImages(updatedImages);
 
@@ -200,8 +207,9 @@ function Main(props) {
             title,
             description,
             images: updatedImages,
-            tag
+            tag: props.tag || 'TAG' // Set default tag to 'TAG' if props.tag is undefined
         };
+
 
         const updatedNotes = props.notes.map((note) =>
             note.id === props.noteId ? updatedNote : note
@@ -226,11 +234,53 @@ function Main(props) {
         fetchImagesFromStorage();
     }, [props.noteId]);
 
+
+    const handleBlue = () => {
+        if (props.theme === 'blue') {
+            props.setTheme('');
+        } else {
+            props.setTheme('blue');
+        }
+    };
+
+    const handleGreen = () => {
+        if (props.theme === 'green') {
+            props.setTheme('');
+        } else {
+            props.setTheme('green');
+        }
+    };
+
+    const handleRed = () => {
+        if (props.theme === 'red') {
+            props.setTheme('');
+        } else {
+            props.setTheme('red');
+        }
+    };
+
+    const handleYellow = () => {
+        if (props.theme === 'yellow') {
+            props.setTheme('');
+        } else {
+            props.setTheme('yellow');
+        }
+    };
+
+    const handlePurple = () => {
+        if (props.theme === 'purple') {
+            props.setTheme('');
+        } else {
+            props.setTheme('purple');
+        }
+    };
     return (
         <>
-            <div className={`container ${props.menu === 'hidden' ? 'active' : ''}`}>
-                {showAlert && <Alert message="Title should not exceed 20 characters!" onClose={handleCloseAlert} />}
+            <div className={`container ${props.menu === 'hidden' ? 'active' : ''} ${props.theme ? "theme" + props.theme : ''}`}>
+                {showAlert && <Alert message="Title and Tag should not exceed 20 characters!" onClose={handleCloseAlert} />}
                 <div className="noteContainer">
+
+
                     <div className="mainComponent">
                         <div
                             className={`noteHeading   ${props.loading === false &&
@@ -257,6 +307,7 @@ function Main(props) {
                                 className={`${isSaved ? 'fa fa-save' : 'fa fa-cloud-upload-alt'} ${isSaved ? 'saved' : 'unsaved'}`}
                             ></i>
                         </div>
+
                     </div>
                     <div className="noteDesc">
                         <ImageContainer
@@ -271,9 +322,23 @@ function Main(props) {
                             value={description}
                             onChange={handleDescChange}
                         />
-                        <div className="tagContainer">
-                            <div className="tagBg">
-                                <input type="text" className={`tag ${tagCondition}`} value={props.tag} onChange={handleTag} />
+                        <div className="features">
+
+
+
+                            <div className="themeContainer">
+                                <div className="themes">
+                                    <div className={`theme blue ${props.theme === 'blue' ? 'themeActive' : ''}`} onClick={handleBlue}></div>
+                                    <div className={`theme green ${props.theme === 'green' ? 'themeActive' : ''}`} onClick={handleGreen}></div>
+                                    <div className={`theme yellow ${props.theme === 'yellow' ? 'themeActive' : ''}`} onClick={handleYellow}></div>
+                                    <div className={`theme purple ${props.theme === 'purple' ? 'themeActive' : ''}`} onClick={handlePurple}></div>
+                                    <div className={`theme red ${props.theme === 'red' ? 'themeActive' : ''}`} onClick={handleRed}></div>
+                                </div>
+                            </div>
+                            <div className="tagContainer">
+                                <div className="tagBg">
+                                    <input type="text" className={`tag ${tagCondition}`} value={props.tag} onChange={handleTag} />
+                                </div>
                             </div>
                         </div>
                     </div>
