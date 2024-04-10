@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './Components/App.jsx';
+
 import './index.css';
 import { dark } from '@clerk/themes';
 // Import Clerk components and provider

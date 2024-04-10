@@ -9,7 +9,7 @@
   --green: #5cb85c;
   --red: #c62828;
   --yellow: #ffca28;
-  --purple: #673AB7;
+  --purple: #673ab7;
 }
 
 /* Global styles */
@@ -3017,115 +3017,91 @@ input.tag {
 .activeNote .note-footer span {
   color: #9c9c9c;
 }
-.themegreen .saved{
-color:var(--green);
+.themegreen .saved {
+  color: var(--green);
 }
-.themered .saved{
-color:var(--red);
+.themered .saved {
+  color: var(--red);
 }
-.themeyellow .saved{
-color:var(--yellow);
+.themeyellow .saved {
+  color: var(--yellow);
 }
-.themepurple .saved{
-color:var(--purple);
+.themepurple .saved {
+  color: var(--purple);
 }
-.themeblue .saved{
-color:var(--blue);
+.themeblue .saved {
+  color: var(--blue);
 }
 .themeblue .noteDesc textarea {
-
   border-bottom: 2px solid var(--blue);
   border-radius: 0;
 }
 .themered .noteDesc textarea {
-
   border-bottom: 2px solid var(--red);
   border-radius: 0;
 }
 .themeyellow .noteDesc textarea {
-
   border-bottom: 2px solid var(--yellow);
   border-radius: 0;
 }
 .themepurple .noteDesc textarea {
-
   border-bottom: 2px solid var(--purple);
   border-radius: 0;
 }
 .themegreen .noteDesc textarea {
-
   border-bottom: 2px solid var(--green);
   border-radius: 0;
 }
 .tagBg {
-    width: 18%;
-    
+  width: 18%;
 }
-@media (max-width:1292px){
+@media (max-width: 1292px) {
   .tagBg {
     width: 18%;
-    
+  }
 }
-}
-@media (max-width:1164px){
+@media (max-width: 1164px) {
   .tagBg {
     width: 25%;
-    
+  }
 }
-}
-@media (max-width:972px){
+@media (max-width: 972px) {
   .tagBg {
     width: 35%;
-    
+  }
 }
-}
-@media (max-width:792px){
+@media (max-width: 792px) {
   .tagBg {
     width: 40%;
-    
+  }
 }
-}
-@media (max-width:692px){
+@media (max-width: 692px) {
   .tagBg {
     width: 50%;
-    
+  }
 }
-}
-@media (max-width:594px){
+@media (max-width: 594px) {
   .tagBg {
     width: 80%;
-    
-}
+  }
 }
 .noteDesc textarea {
-  
   height: 55vh;
-
 }
 .themered .images {
-  
   border: 0.25px solid var(--red);
-
 }
 .themegreen .images {
-  
   border: 0.25px solid var(--green);
-
 }
 .themeyellow .images {
-  
   border: 0.25px solid var(--yellow);
-
 }
 .themepurple .images {
-  
   border: 0.25px solid var(--purple);
-
 }
 .themeblue .images {
-  
   border: 0.25px solid var(--blue);
-
 }
 .themepurple img {
   box-shadow: 0 1px 6px var(--purple);
@@ -3133,7 +3109,6 @@ color:var(--blue);
 
 .themepurple .file-input-label {
   border: 0.5px solid var(--purple);
-
 }
 
 .themepurple .plus-icon {
@@ -3153,7 +3128,6 @@ color:var(--blue);
 
 .themered .file-input-label {
   border: 0.5px solid var(--red);
-
 }
 
 .themered .plus-icon {
@@ -3173,7 +3147,6 @@ color:var(--blue);
 
 .themeblue .file-input-label {
   border: 0.5px solid var(--blue);
-
 }
 
 .themeblue .plus-icon {
@@ -3193,7 +3166,6 @@ color:var(--blue);
 
 .themegreen .file-input-label {
   border: 0.5px solid var(--green);
-
 }
 
 .themegreen .plus-icon {
@@ -3213,7 +3185,6 @@ color:var(--blue);
 
 .themeyellow .file-input-label {
   border: 0.5px solid var(--yellow);
-
 }
 
 .themeyellow .plus-icon {
@@ -3235,78 +3206,118 @@ color:var(--blue);
   transition: 0.3s ease-in-out;
   cursor: pointer;
 }
-.blue{
-  box-shadow:0 1px 4px var(--blue);
+.blue {
+  box-shadow: 0 1px 4px var(--blue);
 }
-.red{
-  box-shadow:0 1px 4px var(--red);
+.red {
+  box-shadow: 0 1px 4px var(--red);
 }
-.yellow{
-  box-shadow:0 1px 4px var(--yellow);
+.yellow {
+  box-shadow: 0 1px 4px var(--yellow);
 }
-.purple{
-  box-shadow:0 1px 4px var(--purple);
+.purple {
+  box-shadow: 0 1px 4px var(--purple);
 }
-.green{
-  box-shadow:0 1px 4px var(--green);
+.green {
+  box-shadow: 0 1px 4px var(--green);
 }
 .rednote .noteTag {
- 
-  border-top: .5px solid var(--red);
-  border-right: .5px solid var(--red);
-  
+  border-top: 0.5px solid var(--red);
+  border-right: 0.5px solid var(--red);
 }
 .greennote .noteTag {
- 
-  border-top: .5px solid var(--green);
-  border-right: .5px solid var(--green);
-  
+  border-top: 0.5px solid var(--green);
+  border-right: 0.5px solid var(--green);
 }
 .greennote .noteTag {
- 
-  border-top: .5px solid var(--green);
-  border-right: .5px solid var(--green);
-  
+  border-top: 0.5px solid var(--green);
+  border-right: 0.5px solid var(--green);
 }
 .yellownote .noteTag {
- 
-  border-top: .5px solid var(--yellow);
-  border-right: .5px solid var(--yellow);
-  
+  border-top: 0.5px solid var(--yellow);
+  border-right: 0.5px solid var(--yellow);
 }
 .bluenote .noteTag {
- 
-  border-top: .5px solid var(--blue);
-  border-right: .5px solid var(--blue);
-  
+  border-top: 0.5px solid var(--blue);
+  border-right: 0.5px solid var(--blue);
 }
-.rednote:hover{
-  box-shadow:0 1px 6px var(--red)
+.rednote:hover {
+  box-shadow: 0 1px 6px var(--red);
 }
-.rednote.currentNote{
-  box-shadow:0 1px 6px var(--red)
+.rednote.currentNote {
+  box-shadow: 0 1px 6px var(--red);
 }
-.greennote:hover{
-  box-shadow:0 1px 6px var(--green)
+.greennote:hover {
+  box-shadow: 0 1px 6px var(--green);
 }
-.greennote.currentNote{
-  box-shadow:0 1px 6px var(--green)
+.greennote.currentNote {
+  box-shadow: 0 1px 6px var(--green);
 }
-.yellownote:hover{
-  box-shadow:0 1px 6px var(--yellow)
+.yellownote:hover {
+  box-shadow: 0 1px 6px var(--yellow);
 }
-.yellownote.currentNote{
-  box-shadow:0 1px 6px var(--yellow)
+.yellownote.currentNote {
+  box-shadow: 0 1px 6px var(--yellow);
 }
-.bluenote:hover{
-  box-shadow:0 1px 6px var(--blue)
+.bluenote:hover {
+  box-shadow: 0 1px 6px var(--blue);
 }
-.bluenote.currentNote{
-  box-shadow:0 1px 6px var(--blue)
+.bluenote.currentNote {
+  box-shadow: 0 1px 6px var(--blue);
 }
-.purplenote:hover{
-  box-shadow:0 1px 6px var(--purple)
+.purplenote:hover {
+  box-shadow: 0 1px 6px var(--purple);
 }
-.purplenote.currentNote{
-  box-shadow:0 1px 6px var(--purple)
+.purplenote.currentNote {
+  box-shadow: 0 1px 6px var(--purple);
+}
+.assistantContainer {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding: 0.75rem;
+  border: 0.75px solid #999;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  font-size: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  padding-top: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.assistantContainer:hover {
+  color: #eee;
+}
+.micStatus {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.micIcon {
+  font-size: 12px;
+}
+.noteContainer {
+  /* width: 100%; */
+  padding: 0;
+  /* height: 100vh; */
+  padding-top: 3.5rem;
+  padding-left: 3rem;
 }

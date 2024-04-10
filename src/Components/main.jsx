@@ -3,11 +3,10 @@ import FormattingContainer from './FormattingContainer';
 import ImageContainer from './ImgContainer';
 import OpenedImage from './OpenedImage';
 import Alert from './Alert';
-
 function generateRandomId() {
     return Math.floor(Math.random() * 1000000).toString();
 }
-
+import "babel-polyfill";
 function Main(props) {
     const { tag, setTag } = props
     const [openedImage, setOpenedImage] = useState(null);
@@ -21,6 +20,72 @@ function Main(props) {
     const [autoSaveInterval, setAutoSaveInterval] = useState(null);
     const [isSaved, setIsSaved] = useState(true);
     const [tagCondition, setTagCondition] = useState("");
+    const [isListening, setIsListening] = useState(false);
+    const [transcript, setTranscript] = useState('');
+    const [recognition, setRecognition] = useState(null);
+    const [transcriptTimeout, setTranscriptTimeout] = useState(null);
+
+    const handleSpeechRecognition = () => {
+        if ('webkitSpeechRecognition' in window) {
+            const newRecognition = new window.webkitSpeechRecognition();
+            newRecognition.continuous = true;
+            newRecognition.interimResults = false;
+
+            newRecognition.onstart = () => {
+                setIsListening(true);
+                const synth = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance("Listening to your speech, boss");
+                synth.speak(utterance);
+            };
+
+            newRecognition.onresult = (event) => {
+                const finalTranscript = event.results[event.results.length - 1][0].transcript;
+                setTranscript((prevTranscript) => prevTranscript + ' ' + finalTranscript);
+
+                // Clear previous timeout, if any
+                clearTimeout(transcriptTimeout);
+                saveNote()
+
+                // Set a new timeout to reset the transcript after a short delay
+                const timeout = setTimeout(() => {
+                    setTranscript('');
+                }, 500);
+                setTranscriptTimeout(timeout);
+            };
+
+            newRecognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+            };
+
+            newRecognition.onend = () => {
+                setIsListening(false);
+                const synth = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance("Thank you, boss");
+                synth.speak(utterance);
+                setTranscript('');
+                saveNote()
+            };
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                newRecognition.start();
+                setRecognition(newRecognition);
+            }
+        } else {
+            alert('Speech recognition is not supported in this browser.');
+        }
+    };
+
+
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(transcriptTimeout);
+        };
+    }, [transcriptTimeout]);
+
+
     // Main.jsx
     useEffect(() => {
         if (uploadedImages === undefined) {
@@ -274,6 +339,10 @@ function Main(props) {
             props.setTheme('purple');
         }
     };
+    useEffect(() => {
+        setDescription((prevDescription) => prevDescription + transcript);
+        setTranscript('');
+    }, [transcript]);
     return (
         <>
             <div className={`container ${props.menu === 'hidden' ? 'active' : ''} ${props.theme ? "theme" + props.theme : ''}`}>
@@ -340,6 +409,16 @@ function Main(props) {
                                     <input type="text" className={`tag ${tagCondition}`} value={props.tag} onChange={handleTag} />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="assistantContainer" onClick={handleSpeechRecognition}>
+                        <div className="assistant">
+                            <i className="fas fa-microphone"></i>
+                            {isListening && (
+                                <div className="micStatus">
+                                    <span className="micIcon">🎙️</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

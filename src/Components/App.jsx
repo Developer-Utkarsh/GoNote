@@ -25,6 +25,21 @@ function App() {
   const [imagesArray, setImagesArray] = useState()
   const [tag, setTag] = useState();
   const [theme, setTheme] = useState('')
+  function generateRandomId() {
+    let id = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const idLength = 8; // Adjust the length as needed
+
+    do {
+      id = '';
+      for (let i = 0; i < idLength; i++) {
+        id += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+    } while (notes.some(note => note.id === id));
+
+    return id;
+  }
+
   useEffect(() => {
     // Simulating loading delay with setTimeout
     const simulateLoading = () => {
