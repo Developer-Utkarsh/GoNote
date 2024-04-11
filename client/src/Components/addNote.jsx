@@ -37,9 +37,10 @@ function AddNote(props) {
             description: noteDescription,
             date: formattedDate,
             time: formattedTime,
-            tag: "TAG", // Set the default tag to 'TAG'
-            images: [], // Set the default images to an empty array
-            id: generateRandomId()
+            tag: "TAG",
+            images: [],
+            id: generateRandomId(),
+            email: "" // Add this line
         };
         props.addNewNote(newNote);
         setNoteTitle('New Note');

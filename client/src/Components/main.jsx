@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import FormattingContainer from './FormattingContainer';
 import ImageContainer from './ImgContainer';
 import OpenedImage from './OpenedImage';
 import Alert from './Alert';
 function generateRandomId() {
     return Math.floor(Math.random() * 1000000).toString();
 }
-import "babel-polyfill";
+
 function Main(props) {
     const { tag, setTag } = props
     const [openedImage, setOpenedImage] = useState(null);
@@ -111,14 +110,42 @@ function Main(props) {
     const saveNote = useCallback(() => {
         const updatedNotes = props.notes.map((note) => {
             if (note.id === props.noteId) {
-                return { ...note, title, description, images: uploadedImages, tag, theme: props.theme };
+                return {
+                    ...note,
+                    title: title,
+                    description: description,
+                    images: uploadedImages,
+                    tag: props.tag,
+                    theme: props.theme,
+                    email: props.user ? props.user.emailAddresses[0].emailAddress : '', // Use props.user instead of user
+                };
             }
             return note;
         });
         props.setNotes(updatedNotes);
         setIsSaved(true);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag, props.theme]);
+    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag, props.theme, props.user]);
+
+    const updateNoteInArray = useCallback(() => {
+        const updatedNotes = props.notes.map((note) => {
+            if (note.id === props.noteId) {
+                return {
+                    ...note,
+                    title: title,
+                    description: description,
+                    images: uploadedImages,
+                    tag: props.tag,
+                    theme: props.theme,
+                    email: props.user ? props.user.emailAddresses[0].emailAddress : '', // Use props.user instead of user
+                };
+            }
+            return note;
+        });
+        props.setNotes(updatedNotes);
+        setIsSaved(true);
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag, props.theme, props.user]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -134,17 +161,7 @@ function Main(props) {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [saveNote]);
-    const updateNoteInArray = useCallback(() => {
-        const updatedNotes = props.notes.map((note) => {
-            if (note.id === props.noteId) {
-                return { ...note, title, description, images: uploadedImages, tag: props.tag }; // Include the tag value
-            }
-            return note;
-        });
-        props.setNotes(updatedNotes);
-        setIsSaved(true);
-        localStorage.setItem('notes', JSON.stringify(updatedNotes));
-    }, [props.notes, props.noteId, title, description, uploadedImages, props.tag]);
+
 
     const debouncedUpdateNoteInArray = useCallback(
         debounce(updateNoteInArray, 1000),
@@ -205,6 +222,8 @@ function Main(props) {
                 debouncedUpdateNoteInArray();
             }
         }
+        setTitle(newTitle);
+        props.setTitle(newTitle)
     }, [debouncedUpdateNoteInArray]);
 
     const handleTag = useCallback((e) => {
@@ -229,14 +248,17 @@ function Main(props) {
         setShowAlert(false);
         setTitle(title.slice(0, 18));
         setIsSaved(false);
+
         debouncedUpdateNoteInArray();
     };
 
     const handleDescChange = useCallback((e) => {
         const newDescription = e.target.value;
         setDescription(newDescription);
+        props.setDesc(newDescription);
         setIsSaved(false);
         debouncedUpdateNoteInArray();
+        saveNote()
     }, [debouncedUpdateNoteInArray]);
 
     useEffect(() => {
@@ -251,7 +273,6 @@ function Main(props) {
             document.removeEventListener('mouseup', checkForSelection);
         };
     }, []);
-
     // Main.jsx
     useEffect(() => {
         setAnimation('show');
