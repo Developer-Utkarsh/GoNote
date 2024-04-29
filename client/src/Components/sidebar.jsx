@@ -163,8 +163,10 @@ function Sidebar(props) {
                         {/* If user is logged in, show UserButton, else show SignIn button */}
                         <div className="copyright">By Utkarsh Tiwari</div>
                         <div className="socialMedia">
+                            <a href="https://www.linkedin.com/in/developerutkarsh/" target='_blank'><i className="fa-brands fa-linkedin"></i></a>
+                            
+                            <a href="https://github.com/Developer-Utkarsh" target='_blank'><i className="fa-brands fa-github"></i></a>
                             <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-instagram"></i></a>
-                            <a href="https://github.com/Utkarsh-Web-2023" target='_blank'><i className="fa-brands fa-github"></i></a>
 
 
                         </div>
