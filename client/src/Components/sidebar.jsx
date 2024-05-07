@@ -166,7 +166,7 @@ function Sidebar(props) {
                             <a href="https://www.linkedin.com/in/developerutkarsh/" target='_blank'><i className="fa-brands fa-linkedin"></i></a>
                             
                             <a href="https://github.com/Developer-Utkarsh" target='_blank'><i className="fa-brands fa-github"></i></a>
-                            <a href="https://www.instagram.com/iam_utkarshtiwari/" target='_blank'><i className="fa-brands fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/developer_utkarsh/" target='_blank'><i className="fa-brands fa-instagram"></i></a>
 
 
                         </div>
